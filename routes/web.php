@@ -20,18 +20,14 @@ use App\Http\Controllers\Login;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
-
-Route::get('login', [Login::class, 'login'])->name('login');
+Route::get('/', [Login::class, 'login'])->name('login');
 Route::post('login', [Login::class, 'login_action'])->name('login.action');
 Route::get('logout', [Login::class, 'logout'])->name('logout');
 
 //route resource
 
 Route::middleware(['auth'])->group(function () {
-    
+
     // Route::get('/dashboard', function () {
     //     return view('dashboard', ['title' => 'Dashboard']);
     // });
