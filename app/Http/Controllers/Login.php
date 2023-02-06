@@ -11,7 +11,7 @@ class Login extends Controller
 {
     public function login()
     {
-        $data['title'] = 'Login';
+        $data['title'] = 'Aplikasi PKL - Login';
         return view('login', $data);
     }
 
@@ -27,9 +27,7 @@ class Login extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors([
-            'password' => 'Salah Username / Password',
-        ]);
+        return back()->with('error','Username / Password Salah');
     }
 
     public function logout(Request $request)
