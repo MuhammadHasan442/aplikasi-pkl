@@ -33,7 +33,7 @@
                                 Perangkat Server</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $server }}</div>
                         </div>
-                        <div class="col-auto"> 
+                        <div class="col-auto">
                             <i class="fas fa-desktop fa-2x text-gray-300"></i>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $ap }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-inbox fa-2x text-gray-300"></i>
+                            <i class="fas fa-upload fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
