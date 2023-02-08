@@ -17,6 +17,10 @@
                         <input type="text" class="form-control" name="sn" aria-describedby="sn" id="sn" required>
                     </div>
                     <div class="form-group">
+                        <label for="ip">IP Address</label>
+                        <input type="text" class="form-control" name="ip" aria-describedby="ip" id="ip" required>
+                    </div>
+                    <div class="form-group">
                         <label for="merkserver">Merk Server</label>
                         <input type="text" class="form-control" name="merkserver" aria-describedby="merkServer" required>
                     </div>

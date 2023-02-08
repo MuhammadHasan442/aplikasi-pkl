@@ -11,10 +11,14 @@
             <div class="modal-body">
                  <form action="{{ route('ap') }}" method="POST">
                     @csrf
-                    <!-- <input type="hidden" name="sn" id="sn"> -->
+                    <input type="hidden" name="post_id" id="post_id">
                     <div class="form-group">
                         <label for="sn">SN</label>
                         <input type="text" class="form-control" name="sn" aria-describedby="sn" id="sn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ip">IP Address</label>
+                        <input type="text" class="form-control" name="ip" aria-describedby="ip" id="ip" required>
                     </div>
                     <div class="form-group">
                         <label for="merkap">Merk Access Point</label>

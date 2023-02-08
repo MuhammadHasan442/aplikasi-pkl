@@ -20,11 +20,13 @@
             </a>
             <div class="table-responsive">
             <br>
+            @include('partial.notif')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">SN</th>
+                        <th scope="col">IP Address</th>
                         <th scope="col">Merk CCTV</th>
                         <th scope="col">Tipe</th>
                         <th scope="col">Letak</th>
@@ -37,17 +39,20 @@
                     <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
+                            <td>{{ $post->ip }}</td>
                             <td>{{ $post->merk_cctv }}</td>
                             <td>{{ $post->tipe }}</td>
                             <td>{{ $post->letak }}</td>
                             <td>{{ $post->tahun }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-cctv-pemko.destroy', $post->sn) }}" method="POST">
-                                    <input type="hidden" value="{{$post->sn}}" name="sn">
-                                    <a href="{{ route('data-cctv-pemko.edit', $post->sn) }}" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal" onclick="get_data('{{ $post->sn }}')">EDIT</a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-cctv-pemko.destroy', $post->id) }}" method="POST">
+                                    <input type="hidden" value="{{$post->id}}" name="id" id="id">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
                                 </form>
                             </td>
                         </tr>
@@ -63,15 +68,17 @@
     </div>
     @push('js')
     <script>
-        function get_data(sn) {
+        function get_data(id) {
             // JavaScript untuk ambil data buat Edit Data
             $.ajax({
-                url: "/getPemko/"+sn,
+                url: "/getPemko/"+id,
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
                     for (const iterator of res) {
+                        $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
+                        $('#ip').val(`${iterator.ip}`)
                         $('#merkcctv').val(`${iterator.merk_cctv}`)
                         $('#tipe').val(`${iterator.tipe}`)
                         $('#letak').val(`${iterator.letak}`)
@@ -87,6 +94,6 @@
     </script>
     @endpush
     @include('data-cctv-pemko.insert')
-    @include('data-cctv-pemko.edit') 
-    @include('data-cctv-pemko.cetak') 
+    @include('data-cctv-pemko.edit')
+    @include('data-cctv-pemko.cetak')
 @endsection

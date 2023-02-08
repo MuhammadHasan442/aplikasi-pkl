@@ -12,7 +12,7 @@ class DataServer extends Controller
     {
         //get posts
         // $server = Server_m::latest()->paginate(5);
-        $server = Server_m::orderBy('sn', 'DESC')->paginate();
+        $server = Server_m::orderBy('id', 'DESC')->paginate();
 
         //render view with posts
         return view('data-server.index',['title' => 'Data Server'], compact('server'));
@@ -25,18 +25,28 @@ class DataServer extends Controller
 
     public function store(Request $request)
     {
-        Server_m::create([
-            'sn'            => $request->sn,
-            'merk_server'   => $request->merkserver,
-            'jenis'         => $request->jenis,
-            'hardisk'       => $request->hardisk,
-            'ram'           => $request->ram,
-            'processor'     => $request->processor,
-            'os'            => $request->os,
-            'tahun'         => $request->tahun,
-            'penggunaan'    => $request->penggunaan
-        ]);
-        return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        try {
+            $cek = Server_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            if ($cek == null) {
+                Server_m::create([
+                    'sn'            => $request->sn,
+                    'ip'            => $request->ip,
+                    'merk_server'   => $request->merkserver,
+                    'jenis'         => $request->jenis,
+                    'hardisk'       => $request->hardisk,
+                    'ram'           => $request->ram,
+                    'processor'     => $request->processor,
+                    'os'            => $request->os,
+                    'tahun'         => $request->tahun,
+                    'penggunaan'    => $request->penggunaan
+                ]);
+                return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-server.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
     }
 
     public function show(Server_m $server_m)
@@ -74,18 +84,28 @@ class DataServer extends Controller
 
     public function ubah(Request $request)
     {
-        $update = Server_m::where('sn', $request->sn)->firstOrfail();
-        $update->sn            = $request->sn;
-        $update->merk_server   = $request->merkserver; //kiri database, kanan nama field
-        $update->jenis         = $request->jenis;
-        $update->processor     = $request->hardisk;
-        $update->ram           = $request->ram;
-        $update->hardisk       = $request->processor;
-        $update->os            = $request->os;
-        $update->tahun         = $request->tahun;
-        $update->penggunaan    = $request->penggunaan;
-        $update->save();
-        return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        try {
+            $cek = Server_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            if ($cek == null) {
+                $update = Server_m::where('id', $request->post_id)->firstOrfail();
+                $update->sn            = $request->snok;
+                $update->ip            = $request->ip;
+                $update->merk_server   = $request->merkserver;
+                $update->jenis         = $request->jenis;
+                $update->processor     = $request->hardisk;
+                $update->ram           = $request->ram;
+                $update->hardisk       = $request->processor;
+                $update->os            = $request->os;
+                $update->tahun         = $request->tahun;
+                $update->penggunaan    = $request->penggunaan;
+                $update->save();
+                return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-server.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
     }
 
     /**
@@ -96,13 +116,13 @@ class DataServer extends Controller
      */
     public function destroy(Server_m $server_m, Request $request)
     {
-        Server_m::where('sn', $request->sn)->delete();
+        Server_m::where('id', $request->id)->delete();
         return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 
-    public function getAPI($sn)
+    public function getAPI($id)
     {
-        $server = Server_m::where('sn', $sn)->get();
+        $server = Server_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 

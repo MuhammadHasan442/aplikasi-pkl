@@ -16,7 +16,7 @@ class NvrCctv extends Controller
     public function index()
     {
         //get posts
-        $nvr = NvrCctv_m::orderBy('sn', 'DESC')->paginate();
+        $nvr = NvrCctv_m::orderBy('id', 'DESC')->paginate();
 
         //render view with posts
         return view('data-nvr-cctv.index',['title' => 'Data NVR CCTV'], compact('nvr'));
@@ -41,7 +41,7 @@ class NvrCctv extends Controller
     public function store(Request $request)
     {
         NvrCctv_m::create([
-            'sn'   => $request->sn,
+            'sn'         => $request->sn,
             'merk_nvr'   => $request->merknvr,
             'video_ch'   => $request->videoch,
             'hardisk'    => $request->hardisk,
@@ -99,7 +99,7 @@ class NvrCctv extends Controller
 
     public function ubah(Request $request)
     {
-        $update = NvrCctv_m::where('sn', $request->sn)->firstOrfail();
+        $update = NvrCctv_m::where('id', $request->post_id)->firstOrfail();
         $update->sn             = $request->sn;
         $update->merk_nvr       = $request->merknvr; //kiri database, kanan nama field
         $update->video_ch       = $request->videoch;
@@ -111,12 +111,12 @@ class NvrCctv extends Controller
     }
     public function destroy(NvrCctv_m $NvrCctv_m, Request $request)
      {
-        NvrCctv_m::where('sn', $request->sn)->delete();
+        NvrCctv_m::where('id', $request->id)->delete();
         return redirect()->route('data-nvr-cctv.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
-    public function getAPI($sn)
+    public function getAPI($id)
     {
-        $server = NvrCctv_m::where('sn', $sn)->get();
+        $server = NvrCctv_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 

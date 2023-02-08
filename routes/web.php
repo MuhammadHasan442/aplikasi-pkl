@@ -40,23 +40,23 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-cctv-pemko', CctvPemko::class);
     Route::resource('/data-access-point', AccessPoint::class);
 
-    Route::get('getServer/{sn}', [DataServer::class, 'getAPI']);
+    Route::get('getServer/{id}', [DataServer::class, 'getAPI']);
     Route::post('ubahData', [DataServer::class, 'ubah'])->name('Ubah');
     Route::post('cetakServer', [DataServer::class, 'getPDF'])->name('pdfDS');
 
-    Route::get('getPerangkat/{sn}', [Perangkatjar::class, 'getAPI']);
+    Route::get('getPerangkat/{id}', [Perangkatjar::class, 'getAPI']);
     Route::post('ubahPerangkat', [Perangkatjar::class, 'ubah'])->name('perangkat');
     Route::post('cetakPJ', [Perangkatjar::class, 'getPDF'])->name('pdfPJ');
 
-    Route::get('getNvr/{sn}', [Nvrcctv::class, 'getAPI']);
+    Route::get('getNvr/{id}', [Nvrcctv::class, 'getAPI']);
     Route::post('ubahNvr', [Nvrcctv::class, 'ubah'])->name('nvr');
     Route::post('cetakNvr', [Nvrcctv::class, 'getPDF'])->name('pdfNVR');
 
-    Route::get('getPemko/{sn}', [CctvPemko::class, 'getAPI']);
+    Route::get('getPemko/{id}', [CctvPemko::class, 'getAPI']);
     Route::post('ubahPemko', [CctvPemko::class, 'ubah'])->name('pemko');
     Route::post('cetakPemko', [CctvPemko::class, 'getPDF'])->name('pdfPemko');
 
-    Route::get('getAccessPoint/{sn}', [AccessPoint::class, 'getAPI']);
+    Route::get('getAccessPoint/{id}', [AccessPoint::class, 'getAPI']);
     Route::post('ubahAccessPoint', [AccessPoint::class, 'ubah'])->name('ap');
     Route::post('cetakAccessPoint', [AccessPoint::class, 'getPDF'])->name('pdfAP');
 });

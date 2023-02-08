@@ -16,7 +16,7 @@ class AccessPoint extends Controller
     public function index()
     {
         //get posts
-        $ap = AccessPoint_m::orderBy('sn', 'DESC')->paginate();
+        $ap = AccessPoint_m::orderBy('id', 'DESC')->paginate();
         //render view with posts
         return view('data-access-point.index',['title' => 'Data Access Point'], compact('ap'));
     }
@@ -40,17 +40,27 @@ class AccessPoint extends Controller
 
      public function store(Request $request)
      {
-        AccessPoint_m::create([
-             'sn'           => $request->sn,
-             'merk_ap'      => $request->merkap,
-             'tipe'         => $request->tipe,
-             'nama_ap'      => $request->namaap,
-             'letak'        => $request->letak,
-             'tahun'        => $request->tahun
-         ]);
-         return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        try {
+            $cek = AccessPoint_m::where('ip', $request->ip)->first();
+            if ($cek == null) {
+                AccessPoint_m::create([
+                    'sn'           => $request->sn,
+                    'ip'           => $request->ip,
+                    'merk_ap'      => $request->merkap,
+                    'tipe'         => $request->tipe,
+                    'nama_ap'      => $request->namaap,
+                    'letak'        => $request->letak,
+                    'tahun'        => $request->tahun
+                ]);
+                return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-access-point.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
      }
- 
+
      /**
       * Display the specified resource.
       *
@@ -102,28 +112,37 @@ class AccessPoint extends Controller
 
     public function ubah(Request $request)
     {
-        $update = AccessPoint_m::where('sn', $request->sn)->firstOrfail();
-        $update->sn             = $request->sn;
-        $update->merk_ap        = $request->merkap; //kiri database, kanan nama field
-        $update->tipe           = $request->tipe;
-        $update->nama_ap        = $request->namaap;
-        $update->letak          = $request->letak;
-        $update->tahun          = $request->tahun;
-        $update->save();
-        return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        try {
+            $cek = AccessPoint_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            if ($cek == null) {
+                $update = AccessPoint_m::where('id', $request->post_id)->firstOrfail();
+                $update->sn             = $request->sn;
+                $update->ip             = $request->ip;
+                $update->merk_ap        = $request->merkap; //kiri database, kanan nama field
+                $update->tipe           = $request->tipe;
+                $update->nama_ap        = $request->namaap;
+                $update->letak          = $request->letak;
+                $update->tahun          = $request->tahun;
+                $update->save();
+                return redirect()->route('data-access-point.index')->with(['info' => 'Data Berhasil Diupdate!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-access-point.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
     }
 
     public function destroy(AccessPoint_m $AccessPoint_m, Request $request)
      {
-        AccessPoint_m::where('sn', $request->sn)->delete();
+        AccessPoint_m::where('id', $request->id)->delete();
         return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
-    public function getAPI($sn)
+    public function getAPI($id)
     {
-        $server = AccessPoint_m::where('sn', $sn)->get();
+        $server = AccessPoint_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
-
     }
 
     public function getPDF(Request $request)

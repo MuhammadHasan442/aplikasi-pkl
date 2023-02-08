@@ -45,6 +45,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $post->sn }}</td>
+                    <td>{{ $post->ip }}</td>
                     <td>{{ $post->merk_ap }}</td>
                     <td>{{ $post->tipe }}</td>
                     <td>{{ $post->nama_ap }}</td>

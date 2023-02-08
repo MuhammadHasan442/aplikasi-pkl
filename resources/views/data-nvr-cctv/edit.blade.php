@@ -11,7 +11,7 @@
             <div class="modal-body">
                  <form action="{{ route('nvr') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="sn" id="sn">
+                    <input type="hidden" name="post_id" id="post_id">
                     <div class="form-group">
                         <label for="sn">SN</label>
                         <input type="text" class="form-control" name="sn" aria-describedby="sn" id="sn" required>

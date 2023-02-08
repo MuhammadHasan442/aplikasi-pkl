@@ -16,7 +16,7 @@ class CctvPemko extends Controller
     public function index()
     {
         //get posts
-        $pemko = CctvPemko_m::orderBy('sn', 'DESC')->paginate();
+        $pemko = CctvPemko_m::orderBy('id', 'DESC')->paginate();
 
         //render view with posts
         return view('data-cctv-pemko.index',['title' => 'Data CCTV Pemerintah Kota'], compact('pemko'));
@@ -40,16 +40,26 @@ class CctvPemko extends Controller
      */
      public function store(Request $request)
      {
-          CctvPemko_m::create([
-                'sn'            => $request->sn,
-                'merk_cctv'     => $request->merkcctv,
-                'tipe'          => $request->tipe,
-                'letak'         => $request->letak,
-                'tahun'         => $request->tahun
-         ]);
-         return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        try {
+            $cek = CctvPemko_m::where('ip', $request->ip)->first();
+            if ($cek == null) {
+                CctvPemko_m::create([
+                      'sn'            => $request->sn,
+                      'ip'            => $request->ip,
+                      'merk_cctv'     => $request->merkcctv,
+                      'tipe'          => $request->tipe,
+                      'letak'         => $request->letak,
+                      'tahun'         => $request->tahun
+               ]);
+               return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-cctv-pemko.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
      }
- 
+
      /**
       * Display the specified resource.
       *
@@ -100,24 +110,35 @@ class CctvPemko extends Controller
      */
     public function ubah(Request $request)
     {
-        $update = CctvPemko_m::where('sn', $request->sn)->firstOrfail();
-        $update->sn             = $request->sn;
-        $update->merk_cctv      = $request->merkcctv; //kiri database, kanan nama field
-        $update->tipe           = $request->tipe;
-        $update->letak          = $request->letak;
-        $update->tahun          = $request->tahun;
-        $update->save();
-        return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
+        try {
+            $cek = CctvPemko_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            if ($cek == null) {
+                $update = CctvPemko_m::where('id', $request->post_id)->firstOrfail();
+                $update->sn             = $request->sn;
+                $update->ip             = $request->ip;
+                $update->merk_cctv      = $request->merkcctv;
+                $update->tipe           = $request->tipe;
+                $update->letak          = $request->letak;
+                $update->tahun          = $request->tahun;
+                $update->save();
+                return redirect()->route('data-cctv-pemko.index')->with(['info' => 'Data Berhasil Diupdate!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-cctv-pemko.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
     }
 
     public function destroy(CctvPemko_m $CctvPemko_m, Request $request)
      {
-        CctvPemko_m::where('sn', $request->sn)->delete();
+        CctvPemko_m::where('id', $request->id)->delete();
         return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
-    public function getAPI($sn)
+    public function getAPI($id)
     {
-        $server = CctvPemko_m::where('sn', $sn)->get();
+        $server = CctvPemko_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 

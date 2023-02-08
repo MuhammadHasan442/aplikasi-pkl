@@ -20,6 +20,7 @@
             </a>
             <div class="table-responsive">
             <br>
+            @include('partial.notif')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
@@ -44,12 +45,14 @@
                             <td>{{ $post->penggunaan }}</td>
                             <td>{{ $post->tahun }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-nvr-cctv.destroy', $post->sn) }}" method="POST">
-                                    <input type="hidden" value="{{$post->sn}}" name="sn">
-                                    <a href="{{ route('data-nvr-cctv.edit', $post->sn) }}" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal" onclick="get_data('{{ $post->sn }}')">EDIT</a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-nvr-cctv.destroy', $post->id) }}" method="POST">
+                                    <input type="hidden" value="{{$post->id}}" name="id" id="id">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
                                 </form>
                             </td>
                         </tr>
@@ -65,19 +68,20 @@
     </div>
     @push('js')
     <script>
-        function get_data(sn) {
+        function get_data(id) {
             // JavaScript untuk ambil data buat Edit Data
             $.ajax({
-                url: "/getNvr/"+sn,
+                url: "/getNvr/"+id,
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
                     for (const iterator of res) {
+                        $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
                         $('#merknvr').val(`${iterator.merk_nvr}`)
                         $('#videoch').val(`${iterator.video_ch}`)
                         $('#hardisk').val(`${iterator.hardisk}`)
-                        $('#penggunan').val(`${iterator.penggunaan}`)
+                        $('#penggunaan').val(`${iterator.penggunaan}`)
                         $('#tahun').val(`${iterator.tahun}`)
                     }
                 },
@@ -90,6 +94,6 @@
     </script>
     @endpush
     @include('data-nvr-cctv.insert')
-    @include('data-nvr-cctv.edit') 
-    @include('data-nvr-cctv.cetak') 
+    @include('data-nvr-cctv.edit')
+    @include('data-nvr-cctv.cetak')
 @endsection

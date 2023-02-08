@@ -20,11 +20,13 @@
             </a>
             <div class="table-responsive">
             <br>
+            @include('partial.notif')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                       <tr>
                         <th scope="col">No</th>
                         <th scope="col">SN</th>
+                        <th scope="col">IP Address</th>
                         <th scope="col">Merk Server</th>
                         <th scope="col">Jenis</th>
                         <th scope="col">HDD</th>
@@ -41,6 +43,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
+                            <td>{{ $post->ip }}</td>
                             <td>{{ $post->merk_server }}</td>
                             <td>{{ $post->jenis }}</td>
                             <td>{{ $post->hardisk }}</td>
@@ -50,10 +53,10 @@
                             <td>{{ $post->tahun }}</td>
                             <td>{{ $post->penggunaan }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-server.destroy', $post->sn) }}" method="POST">
-                                    <input type="hidden" value="{{$post->sn}}" name="sn">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-server.destroy', $post->id) }}" method="POST">
+                                    <input type="hidden" value="{{$post->id}}" name="id">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->sn}}')"><i class="fas fa-edit"></i></button>
+                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -73,16 +76,17 @@
     </div>
     @push('js')
     <script>
-        function get_data(sn) {
+        function get_data(id) {
 
             // JavaScript untuk ambil data buat Edit Data
 
          $.ajax({
-            url: "/getServer/"+sn,
+            url: "/getServer/"+id,
             type: 'GET',
             dataType: 'json', // added data type
             success: function(res) {
                 for (const iterator of res) {
+                    $('#post_id').val(`${iterator.id}`)
                     $('#snok').val(`${iterator.sn}`)
                     $('#merkserver').val(`${iterator.merk_server}`)
                     $('#jenis').val(`${iterator.jenis}`)
