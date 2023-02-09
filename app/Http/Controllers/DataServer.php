@@ -137,8 +137,12 @@ class DataServer extends Controller
 
     $pdf = PDF::loadView('data-server.pdf', [
         'data' => $data
-    ]);
+    ])->setPaper('A4', 'Landscape');
+
     $nama = 'laporan data Server '.$request->tahun.'.pdf';
     return $pdf->download($nama);
+
+    // return view('data-server.pdf',['title' => 'Data Server'], compact('data'));
+
 }
 }
