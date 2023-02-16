@@ -26,7 +26,7 @@ class DataServer extends Controller
     public function store(Request $request)
     {
         try {
-            $cek = Server_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            $cek = Server_m::where('ip', $request->ip)->first();
             if ($cek == null) {
                 Server_m::create([
                     'sn'            => $request->sn,
