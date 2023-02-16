@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
@@ -12,51 +12,54 @@
                 <form action="{{ route('Ubah') }}" method="POST">
                     @csrf
                     <input type="hidden" name="post_id" id="post_id">
-                    <div class="form-group">
-                        <label for="sn">SN</label>
-                        <input type="text" class="form-control" name="snok" aria-describedby="sn" id="snok" required>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="sn">SN</label>
+                            <input type="text" class="form-control" name="snok" aria-describedby="sn" id="snok" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ip">IP Address</label>
+                            <input type="text" class="form-control" name="ip" aria-describedby="ip" id="ipok" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="ip">IP Address</label>
-                        <input type="text" class="form-control" name="ip" aria-describedby="ip" id="ip" required>
+                    <br>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="merkserver">Merk Server</label>
+                            <input type="text" class="form-control" name="merkserver" id="merkserver" aria-describedby="merkServer" required></div>
+                        <div class="col-md-6">
+                            <label for="jenis">Jenis Server</label>
+                            <input type="text" class="form-control" name="jenis" id="jenis" aria-describedby="jenisServer" required></div>
                     </div>
-                    <div class="form-group">
-                        <label for="merkserver">Merk Server</label>
-                        <input type="text" class="form-control" name="merkserver" aria-describedby="merkServer" id="merkserver" required>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <label for="processor">Processor</label>
+                            <input type="text" class="form-control" name="processor" id="processor" aria-describedby="processorServer" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ram">RAM</label>
+                            <input type="text" class="form-control" name="ram" id="ram" aria-describedby="ramServer" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="hardisk">Harddisk</label>
+                            <input type="text" class="form-control" name="hardisk" id="hardisk" aria-describedby="hardiskServer" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="os">OS</label>
+                            <input type="text" class="form-control" name="os" id="os" aria-describedby="osServer" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="jenis">Jenis Server</label>
-                        <input type="text" class="form-control" name="jenis" aria-describedby="jenisServer" id="jenis" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="processor">Processor</label>
-                        <input type="text" class="form-control" name="processor" aria-describedby="processorServer" id="processor" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ram">RAM</label>
-                        <input type="text" class="form-control" name="ram" aria-describedby="ramServer" id="ram" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="hardisk">Hardisk</label>
-                        <input type="text" class="form-control" name="hardisk" aria-describedby="hardiskServer" id="hardisk" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="os">OS</label>
-                        <input type="text" class="form-control" name="os" aria-describedby="osServer" id="os" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tahun">Tahun</label>
-                        <input type="text" class="form-control" name="tahun" aria-describedby="tahunServer" id="tahun" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="penggunaan">Penggunaan</label>
-                        <input type="text" class="form-control" name="penggunaan" aria-describedby="penggunaanServer" id="penggunaan">
+                    <br>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label for="tahun">Tahun</label>
+                            <input type="text" class="form-control" name="tahun" id="tahun" aria-describedby="tahunServer" required>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="penggunaan">Penggunaan</label>
+                            <input type="text" class="form-control" name="penggunaan" id="penggunaan" aria-describedby="penggunaanServer">
+                        </div>
                     </div>
 
             </div>

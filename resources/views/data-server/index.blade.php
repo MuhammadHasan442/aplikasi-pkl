@@ -88,6 +88,7 @@
                 for (const iterator of res) {
                     $('#post_id').val(`${iterator.id}`)
                     $('#snok').val(`${iterator.sn}`)
+                    $('#ipok').val(`${iterator.ip}`)
                     $('#merkserver').val(`${iterator.merk_server}`)
                     $('#jenis').val(`${iterator.jenis}`)
                     $('#processor').val(`${iterator.processor}`)
