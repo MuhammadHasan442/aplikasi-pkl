@@ -19,8 +19,8 @@
                 <center>
                     <h5 class="text text-center">PEMERINTAH KOTA BANJARMASIN</h5>
                     <h5 class="text text-center">DINAS KOMUNIKASI, INFORMATIKA DAN STATISTIK</h5>
-                    <p class="text text-center" style="font-size: 12px">Jalan R. E. Martadinata No.1 Kode Pos 70111 Gedung Blok B Lt. Dasar - Banjarmasin </p>
-                    <p class="text text-center" style="font-size: 12px">Email : diskominfotik@mail.banjarmasinkota.go.id Website : diskominfotik.banjarmasinkota.go.id</p>
+                    <p class="text text-center" style="font-size: 13px">Jalan R. E. Martadinata No.1 Kode Pos 70111 Gedung Blok B Lt. Dasar - Banjarmasin 
+                    <br> Email : diskominfotik@mail.banjarmasinkota.go.id Website : diskominfotik.banjarmasinkota.go.id </p> 
                 </center>
             </td>
         </tr>
@@ -33,6 +33,7 @@
         <tr>
             <th>No</th>
             <th>SN</th>
+            <th>IP Address</th>
             <th>Merk CCTV</th>
             <th>Tipe</th>
             <th>Letak</th>
@@ -44,6 +45,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $post->sn }}</td>
+                    <td>{{ $post->ip }}</td>
                     <td>{{ $post->merk_cctv }}</td>
                     <td>{{ $post->tipe }}</td>
                     <td>{{ $post->letak }}</td>
