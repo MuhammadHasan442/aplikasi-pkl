@@ -92,9 +92,9 @@ class DataServer extends Controller
                 $update->ip            = $request->ip;
                 $update->merk_server   = $request->merkserver;
                 $update->jenis         = $request->jenis;
-                $update->processor     = $request->hardisk;
+                $update->processor     = $request->processor;
                 $update->ram           = $request->ram;
-                $update->hardisk       = $request->processor;
+                $update->hardisk       = $request->hardisk;
                 $update->os            = $request->os;
                 $update->tahun         = $request->tahun;
                 $update->penggunaan    = $request->penggunaan;
