@@ -1,0 +1,159 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CctvPublik_m;
+use Illuminate\Http\Request;
+
+class CctvPublik extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //get posts
+        $publik = CctvPublik_m::orderBy('id', 'DESC')->paginate();
+
+        //render view with posts
+        return view('data-cctv-publik.index',['title' => 'Data CCTV Publik Kota Banjarmasin'], compact('publik'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+     public function store(Request $request)
+     {
+        try {
+            $cek = CctvPublik_m::where('ip', $request->ip)->first();
+            if ($cek == null) {
+                CctvPublik_m::create([
+                      'sn'            => $request->sn,
+                      'ip'            => $request->ip,
+                      'merk_cctv'     => $request->merkcctv,
+                      'tipe'          => $request->tipe,
+                      'letak'         => $request->letak,
+                      'tahun'         => $request->tahun
+               ]);
+               return redirect()->route('data-cctv-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-cctv-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
+     }
+
+     /**
+      * Display the specified resource.
+      *
+      * @param  \App\Models\CctvPublik_m  $cctvPublik_m
+      * @return \Illuminate\Http\Response
+      */
+
+    public function show(CctvPublik_m $cctvPublik_m)
+    {
+        //return response
+         return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Post',
+            'data'    => $post
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\CctvPublik_m  $cctvPublik_m
+     * @return \Illuminate\Http\Response
+     */
+
+    public function edit(CctvPublik_m $cctvPublik_m)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\CctvPublik_m  $cctvPublik_m
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Request $request, CctvPublik_m $cctvPublik_m)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\CctvPublik_m  $cctvPublik_m
+     * @return \Illuminate\Http\Response
+     */
+    public function ubah(Request $request)
+    {
+
+        try {
+            $cek = CctvPublik_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            if ($cek == null) {
+                $update = CctvPublik_m::where('id', $request->post_id)->firstOrfail();
+                $update->sn             = $request->sn;
+                $update->ip             = $request->ip;
+                $update->merk_cctv      = $request->merkcctv;
+                $update->tipe           = $request->tipe;
+                $update->letak          = $request->letak;
+                $update->tahun          = $request->tahun;
+                $update->save();
+                return redirect()->route('data-cctv-publik.index')->with(['info' => 'Data Berhasil Diupdate!']);
+            } else {
+                throw new Exception("Data IP Sudah Ada");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('data-cctv-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+        }
+    }
+
+    public function destroy(CctvPublik_m $CctvPublik_m, Request $request)
+     {
+        CctvPublik_m::where('id', $request->id)->delete();
+        return redirect()->route('data-cctv-publik.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+    public function getAPI($id)
+    {
+        $server = CctvPublik_m::where('id', $id)->get();
+
+        return response()->json($server, 200, ['pesan' => 'success'] );
+
+    }
+    public function getPDF(Request $request)
+    {
+        if ($request->tahun == 'semua'){
+            $data = CctvPublik_m::all();
+        } else {
+            $data = CctvPublik_m::where('tahun', $request->tahun)->get();
+        }
+
+        $pdf = PDF::loadView('data-cctv-publik.pdf', [
+            'data' => $data
+        ]);
+        $nama = 'laporan cctv publik - '.$request->tahun.'.pdf';
+        return $pdf->download($nama);
+    }
+}

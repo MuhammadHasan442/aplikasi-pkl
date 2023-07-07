@@ -6,6 +6,7 @@ use App\Http\Controllers\DataServer;
 use App\Http\Controllers\PerangkatJar;
 use App\Http\Controllers\NvrCctv;
 use App\Http\Controllers\CctvPemko;
+use App\Http\Controllers\CctvPublik;
 use App\Http\Controllers\AccessPoint;
 use App\Http\Controllers\Login;
 
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-perangkat-jaringan', PerangkatJar::class);
     Route::resource('/data-nvr-cctv', NvrCctv::class);
     Route::resource('/data-cctv-pemko', CctvPemko::class);
+    Route::resource('/data-cctv-publik', CctvPublik::class);
     Route::resource('/data-access-point', AccessPoint::class);
 
     Route::get('getServer/{id}', [DataServer::class, 'getAPI']);
@@ -55,6 +57,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('getPemko/{id}', [CctvPemko::class, 'getAPI']);
     Route::post('ubahPemko', [CctvPemko::class, 'ubah'])->name('pemko');
     Route::post('cetakPemko', [CctvPemko::class, 'getPDF'])->name('pdfPemko');
+
+    Route::get('getPublik/{id}', [CctvPublik::class, 'getAPI']);
+    Route::post('ubahPublik', [CctvPublik::class, 'ubah'])->name('publik');
+    Route::post('cetakPublik', [CctvPublik::class, 'getPDF'])->name('pdfPublik');
 
     Route::get('getAccessPoint/{id}', [AccessPoint::class, 'getAPI']);
     Route::post('ubahAccessPoint', [AccessPoint::class, 'ubah'])->name('ap');

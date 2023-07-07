@@ -52,6 +52,31 @@
             <i class="fas fa-camera"></i>
             <span>Data CCTV Pemko</span></a>
     </li>
+    <li class="nav-item {{ request()->Is('data-cctv-publik') ? 'active':'' }}">
+        <a class="nav-link" href="data-cctv-publik">
+            <i class="fas fa-camera"></i>
+            <span>Data CCTV Publik</span></a>
+    </li>
+    <li class="nav-item {{ request()->Is('data-wifi-publik') ? 'active':'' }}">
+        <a class="nav-link" href="data-wifi-publik">
+            <i class="fa fa-wifi"></i>
+            <span>Data Wifi Publik</span></a>
+    </li>
+    <li class="nav-item {{ request()->Is('data-perangkat-rusak') ? 'active':'' }}">
+        <a class="nav-link" href="data-perangkat-rusak">
+            <i class="fa fa-unlink"></i>
+            <span>Data Perangkat Rusak</span></a>
+    </li>
+    <li class="nav-item {{ request()->Is('data-pemeliharaan-perangkat') ? 'active':'' }}">
+        <a class="nav-link" href="data-pemeliharaan-perangkat">
+            <i class="fa fa-wrench"></i>
+            <span>Data Pemeliharaan Perangkat</span></a>
+    </li>
+    <li class="nav-item {{ request()->Is('data-pengadaan-perangkat') ? 'active':'' }}">
+        <a class="nav-link" href="data-pengadaan-perangkat">
+            <i class="fas fa-boxes"></i>
+            <span>Data Pengadaan Perangkat</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

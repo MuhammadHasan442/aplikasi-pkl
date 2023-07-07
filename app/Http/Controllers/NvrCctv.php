@@ -122,17 +122,17 @@ class NvrCctv extends Controller
 
     }
     public function getPDF(Request $request)
-{
-    if ($request->tahun == 'semua'){
-        $data = NvrCctv_m::all();
-    } else {
-        $data = NvrCctv_m::where('tahun', $request->tahun)->get();
-    }
+    {
+        if ($request->tahun == 'semua'){
+            $data = NvrCctv_m::all();
+        } else {
+            $data = NvrCctv_m::where('tahun', $request->tahun)->get();
+        }
 
-    $pdf = PDF::loadView('data-nvr-cctv.pdf', [
-        'data' => $data
-    ]);
-    $nama = 'laporan NRV CCTV '.$request->tahun.'.pdf';
-    return $pdf->download($nama);
-}
+        $pdf = PDF::loadView('data-nvr-cctv.pdf', [
+            'data' => $data
+        ]);
+        $nama = 'laporan NRV CCTV '.$request->tahun.'.pdf';
+        return $pdf->download($nama);
+    }
 }
