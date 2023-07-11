@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `access_point` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel data_perangkat.access_point: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.access_point: ~3 rows (lebih kurang)
 INSERT INTO `access_point` (`id`, `sn`, `ip`, `merk_ap`, `tipe`, `nama_ap`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
 	(2, '11111', '3.3.3.3', 'BBBBBBBBBBB', 'AA', 'Dinas Kominfotik', 'Depan Balai Kota', '2022', '2023-02-08 00:08:39', '2023-02-07 17:06:41'),
 	(3, '13123sad', '2.2.2.2', 'asdasd', 'swfw', 'ssffe', 'fwf', '2022', '2023-02-07 23:51:00', '2023-02-07 23:51:00'),
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `cctv_pemko` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel data_perangkat.cctv_pemko: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.cctv_pemko: ~1 rows (lebih kurang)
 INSERT INTO `cctv_pemko` (`id`, `sn`, `ip`, `merk_cctv`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
 	(3, '11111', '1.1.1.1', 'Hikhik', 'swfw', 'fwf', '2022', '2023-02-08 00:45:29', '2023-02-08 00:44:14');
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `cctv_publik` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Table data CCTV Publik';
 
--- Membuang data untuk tabel data_perangkat.cctv_publik: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.cctv_publik: ~1 rows (lebih kurang)
 INSERT INTO `cctv_publik` (`id`, `sn`, `ip`, `merk_cctv`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
 	(2, 'asdqwd3', '12.1.1.2', 'asfif', 'aaaaa', 'bbbbb', '2023', '2023-07-05 20:09:44', '2023-07-05 20:09:44');
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `data_server` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel data_perangkat.data_server: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.data_server: ~1 rows (lebih kurang)
 INSERT INTO `data_server` (`id`, `sn`, `ip`, `merk_server`, `jenis`, `hardisk`, `ram`, `processor`, `os`, `tahun`, `penggunaan`, `updated_at`, `created_at`) VALUES
 	(7, '13123sad', '3.3.3.3', 'Dell', '2CU', '10TB SSD', '256GB', 'AMD Threadripper 64 Core', 'Linux Ubuntu Server 18', '2022', 'Sistem Remote', '2023-02-16 17:02:53', '2023-02-16 17:02:44');
 
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `perangkat_jaringan` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel data_perangkat.perangkat_jaringan: ~1 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.perangkat_jaringan: ~0 rows (lebih kurang)
 
 -- membuang struktur untuk table data_perangkat.personal_access_tokens
 CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Membuang data untuk tabel data_perangkat.user: ~0 rows (lebih kurang)
+-- Membuang data untuk tabel data_perangkat.user: ~1 rows (lebih kurang)
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `telp`, `level`) VALUES
 	(3, 'admin', '$2a$12$VROCmkwa2AJEPUNTwabPeOXtMkr3W8qIqqfVKslVSXIHus7QDkmqW', 'Admin', '088342', 'admin');
 
@@ -215,9 +215,11 @@ CREATE TABLE IF NOT EXISTS `wifi_publik` (
   `ssid` varchar(255) DEFAULT NULL,
   `letak` varchar(255) DEFAULT NULL,
   `tahun` varchar(255) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Data untuk Wifi Publik';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Data untuk Wifi Publik';
 
 -- Membuang data untuk tabel data_perangkat.wifi_publik: ~0 rows (lebih kurang)
 

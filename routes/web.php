@@ -8,6 +8,7 @@ use App\Http\Controllers\NvrCctv;
 use App\Http\Controllers\CctvPemko;
 use App\Http\Controllers\CctvPublik;
 use App\Http\Controllers\AccessPoint;
+use App\Http\Controllers\WifiPublik;
 use App\Http\Controllers\Login;
 
 /*
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-cctv-pemko', CctvPemko::class);
     Route::resource('/data-cctv-publik', CctvPublik::class);
     Route::resource('/data-access-point', AccessPoint::class);
+    Route::resource('/data-wifi-publik', WifiPublik::class);
 
     Route::get('getServer/{id}', [DataServer::class, 'getAPI']);
     Route::post('ubahData', [DataServer::class, 'ubah'])->name('Ubah');
@@ -65,4 +67,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('getAccessPoint/{id}', [AccessPoint::class, 'getAPI']);
     Route::post('ubahAccessPoint', [AccessPoint::class, 'ubah'])->name('ap');
     Route::post('cetakAccessPoint', [AccessPoint::class, 'getPDF'])->name('pdfAP');
+
+    Route::get('getWifiPublik/{id}', [WifiPublik::class, 'getAPI']);
+    Route::post('ubahWifiPublik', [WifiPublik::class, 'ubah'])->name('wifi-publik');
+    Route::post('cetakWifiPublik', [WifiPublik::class, 'getPDF'])->name('pdfWifi');
 });
