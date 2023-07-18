@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-nvr-cctv.store') }}" method="POST">
+                <form action="{{ route('data-nvr-cctv.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <input type="hidden" name="sn" id="sn"> --}}
                     <div class="form-group">
@@ -19,6 +19,10 @@
                     <div class="form-group">
                         <label for="merknvr">Merk NVR</label>
                         <input type="text" class="form-control" name="merknvr" aria-describedby="merknvr">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar" id="gambar">
                     </div>
                     <div class="form-group">
                         <label for="videoch">Channel Video</label>

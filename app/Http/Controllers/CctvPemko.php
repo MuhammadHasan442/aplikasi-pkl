@@ -40,13 +40,22 @@ class CctvPemko extends Controller
      */
      public function store(Request $request)
      {
+        $this->validate($request, [ 
+            'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
+        ]);      
+
         try {
             $cek = CctvPemko_m::where('ip', $request->ip)->first();
             if ($cek == null) {
+                
+                $file = $request->file('gambar')->store('foto/cctv-pemko', 'public');
+
                 CctvPemko_m::create([
                       'sn'            => $request->sn,
                       'ip'            => $request->ip,
                       'merk_cctv'     => $request->merkcctv,
+                      'gambar'        => $file,
                       'tipe'          => $request->tipe,
                       'letak'         => $request->letak,
                       'tahun'         => $request->tahun
@@ -110,11 +119,23 @@ class CctvPemko extends Controller
      */
     public function ubah(Request $request)
     {
+        $update = CctvPemko_m::where('id', $request->post_id)->firstOrfail();
 
         try {
             $cek = CctvPemko_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
             if ($cek == null) {
-                $update = CctvPemko_m::where('id', $request->post_id)->firstOrfail();
+
+                if ($request->gambar) {
+                    if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                        \Storage::delete('public/'.$update->gambar);
+                        $file = $request->file('gambar')->store('foto/cctv-pemko', 'public');
+                        $update->gambar = $file;
+                    } else {
+                      $file = $request->file('gambar')->store('foto/cctv-pemko', 'public');
+                      $update->gambar = $file;
+                    }
+                }
+                
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
                 $update->merk_cctv      = $request->merkcctv;
@@ -122,6 +143,7 @@ class CctvPemko extends Controller
                 $update->letak          = $request->letak;
                 $update->tahun          = $request->tahun;
                 $update->save();
+
                 return redirect()->route('data-cctv-pemko.index')->with(['info' => 'Data Berhasil Diupdate!']);
             } else {
                 throw new Exception("Data IP Sudah Ada");
@@ -132,9 +154,16 @@ class CctvPemko extends Controller
     }
 
     public function destroy(CctvPemko_m $CctvPemko_m, Request $request)
-     {
+    {
+
+        $data = CctvPemko_m::firstOrfail();
+          if ($data) {
+              \Storage::delete('public/'.$data->gambar);
+        }
         CctvPemko_m::where('id', $request->id)->delete();
+
         return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Dihapus!']);
+
     }
     public function getAPI($id)
     {

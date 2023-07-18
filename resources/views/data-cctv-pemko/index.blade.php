@@ -28,6 +28,7 @@
                         <th scope="col">SN</th>
                         <th scope="col">IP Address</th>
                         <th scope="col">Merk CCTV</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Tipe</th>
                         <th scope="col">Letak</th>
                         <th scope="col">Tahun</th>
@@ -41,6 +42,7 @@
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->ip }}</td>
                             <td>{{ $post->merk_cctv }}</td>
+                            <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->tipe }}</td>
                             <td>{{ $post->letak }}</td>
                             <td>{{ $post->tahun }}</td>

@@ -27,6 +27,7 @@
                             <th scope="col">No</th>
                             <th scope="col">SN</th>
                             <th scope="col">Merk NVR</th>
+                            <th scope="col">Foto</th>
                             <th scope="col">Channel Video</th>
                             <th scope="col">HDD</th>
                             <th scope="col">Penggunaan</th>
@@ -40,6 +41,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->merk_nvr }}</td>
+                            <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->video_ch }}</td>
                             <td>{{ $post->hardisk }}</td>
                             <td>{{ $post->penggunaan }}</td>
@@ -75,6 +77,7 @@
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
+                    // console.log(res)
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
