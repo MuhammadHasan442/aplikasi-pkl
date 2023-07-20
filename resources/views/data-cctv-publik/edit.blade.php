@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                 <form action="{{ route('publik') }}" method="POST">
+                 <form action="{{ route('publik') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="post_id" id="post_id">
                     <div class="form-group">
@@ -23,6 +23,10 @@
                     <div class="form-group">
                         <label for="merkcctv">Merk CCTV</label>
                         <input type="text" class="form-control" name="merkcctv" aria-describedby="merkcctv" id="merkcctv" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar" id="gambar">
                     </div>
                     <div class="form-group">
                         <label for="tipe">Tipe</label>

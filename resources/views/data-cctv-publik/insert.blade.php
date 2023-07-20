@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <input type="hidden" name="sn" id="sn"> --}}
                     <div class="form-group">
@@ -23,6 +23,10 @@
                     <div class="form-group">
                         <label for="merkcctv">Merk CCTV</label>
                         <input type="text" class="form-control" name="merkcctv" aria-describedby="merkcctv">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar">
                     </div>
                     <div class="form-group">
                         <label for="tipe">Tipe</label>

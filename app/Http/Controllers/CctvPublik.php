@@ -39,23 +39,41 @@ class CctvPublik extends Controller
      */
      public function store(Request $request)
      {
+
+        $this->validate($request, [
+            'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
+        ]);
+
         try {
+
             $cek = CctvPublik_m::where('ip', $request->ip)->first();
             if ($cek == null) {
+
+                $file = $request->file('gambar')->store('foto/cctv-publik', 'public');
+
                 CctvPublik_m::create([
-                      'sn'            => $request->sn,
-                      'ip'            => $request->ip,
-                      'merk_cctv'     => $request->merkcctv,
-                      'tipe'          => $request->tipe,
-                      'letak'         => $request->letak,
-                      'tahun'         => $request->tahun
+                    'sn'            => $request->sn,
+                    'ip'            => $request->ip,
+                    'merk_cctv'     => $request->merkcctv,
+                    'gambar'        => $file,
+                    'tipe'          => $request->tipe,
+                    'letak'         => $request->letak,
+                    'tahun'         => $request->tahun
                ]);
+
                return redirect()->route('data-cctv-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
             } else {
+
                 throw new Exception("Data IP Sudah Ada");
+
             }
+
         } catch (\Throwable $th) {
+
             return redirect()->route('data-cctv-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
      }
 
@@ -110,10 +128,25 @@ class CctvPublik extends Controller
     public function ubah(Request $request)
     {
 
+        $update = CctvPublik_m::where('id', $request->post_id)->firstOrfail();
+
         try {
+
             $cek = CctvPublik_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+            
             if ($cek == null) {
-                $update = CctvPublik_m::where('id', $request->post_id)->firstOrfail();
+
+                if ($request->gambar) {
+                    if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                        \Storage::delete('public/'.$update->gambar);
+                        $file = $request->file('gambar')->store('foto/cctv-publik', 'public');
+                        $update->gambar = $file;
+                    } else {
+                      $file = $request->file('gambar')->store('foto/cctv-publik', 'public');
+                      $update->gambar = $file;
+                    }
+                }
+
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
                 $update->merk_cctv      = $request->merkcctv;
@@ -121,19 +154,35 @@ class CctvPublik extends Controller
                 $update->letak          = $request->letak;
                 $update->tahun          = $request->tahun;
                 $update->save();
+
                 return redirect()->route('data-cctv-publik.index')->with(['info' => 'Data Berhasil Diupdate!']);
+
             } else {
+
                 throw new Exception("Data IP Sudah Ada");
+
             }
+
         } catch (\Throwable $th) {
+
             return redirect()->route('data-cctv-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
     }
 
     public function destroy(CctvPublik_m $CctvPublik_m, Request $request)
-     {
+    {
+
+        $data = CctvPublik_m::firstOrfail();
+
+        if ($data) {
+            \Storage::delete('public/'.$data->gambar);
+        }
+
         CctvPublik_m::where('id', $request->id)->delete();
+
         return redirect()->route('data-cctv-publik.index')->with(['success' => 'Data Berhasil Dihapus!']);
+
     }
     public function getAPI($id)
     {

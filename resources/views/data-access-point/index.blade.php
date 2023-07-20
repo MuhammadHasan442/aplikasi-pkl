@@ -28,6 +28,7 @@
                         <th scope="col">SN</th>
                         <th scope="col">IP</th>
                         <th scope="col">Merk AP</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Tipe</th>
                         <th scope="col">Nama AP</th>
                         <th scope="col">Letak</th>
@@ -42,6 +43,7 @@
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->ip }}</td>
                             <td>{{ $post->merk_ap }}</td>
+                            <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->tipe }}</td>
                             <td>{{ $post->nama_ap }}</td>
                             <td>{{ $post->letak }}</td>

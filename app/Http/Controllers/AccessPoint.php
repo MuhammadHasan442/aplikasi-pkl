@@ -40,24 +40,41 @@ class AccessPoint extends Controller
 
      public function store(Request $request)
      {
+
+        $this->validate($request, [
+            'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
+        ]);
+
         try {
+
             $cek = AccessPoint_m::where('ip', $request->ip)->first();
             if ($cek == null) {
+
+                $file = $request->file('gambar')->store('foto/ap', 'public');
+
                 AccessPoint_m::create([
                     'sn'           => $request->sn,
                     'ip'           => $request->ip,
                     'merk_ap'      => $request->merkap,
+                    'gambar'       => $file,
                     'tipe'         => $request->tipe,
                     'nama_ap'      => $request->namaap,
                     'letak'        => $request->letak,
                     'tahun'        => $request->tahun
                 ]);
+
                 return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
             } else {
+
                 throw new Exception("Data IP Sudah Ada");
+
             }
         } catch (\Throwable $th) {
+
             return redirect()->route('data-access-point.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
      }
 
@@ -112,10 +129,26 @@ class AccessPoint extends Controller
 
     public function ubah(Request $request)
     {
+
+        $update = AccessPoint_m::where('id', $request->post_id)->firstOrfail();
+
         try {
+
             $cek = AccessPoint_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+
             if ($cek == null) {
-                $update = AccessPoint_m::where('id', $request->post_id)->firstOrfail();
+
+                if ($request->gambar) {
+                    if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                        \Storage::delete('public/'.$update->gambar);
+                        $file = $request->file('gambar')->store('foto/ap', 'public');
+                        $update->gambar = $file;
+                    } else {
+                      $file = $request->file('gambar')->store('foto/ap', 'public');
+                      $update->gambar = $file;
+                    }
+                }
+
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
                 $update->merk_ap        = $request->merkap; //kiri database, kanan nama field
@@ -124,19 +157,34 @@ class AccessPoint extends Controller
                 $update->letak          = $request->letak;
                 $update->tahun          = $request->tahun;
                 $update->save();
+
                 return redirect()->route('data-access-point.index')->with(['info' => 'Data Berhasil Diupdate!']);
+
             } else {
+
                 throw new Exception("Data IP Sudah Ada");
+
             }
+
         } catch (\Throwable $th) {
+
             return redirect()->route('data-access-point.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
     }
 
     public function destroy(AccessPoint_m $AccessPoint_m, Request $request)
-     {
+    {
+
+        $data = AccessPoint_m::firstOrfail();
+        if ($data) {
+            \Storage::delete('public/'.$data->gambar);
+        }
+
         AccessPoint_m::where('id', $request->id)->delete();
+
         return redirect()->route('data-access-point.index')->with(['success' => 'Data Berhasil Dihapus!']);
+
     }
     public function getAPI($id)
     {

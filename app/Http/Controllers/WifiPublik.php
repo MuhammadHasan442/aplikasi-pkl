@@ -18,7 +18,7 @@ class WifiPublik extends Controller
         $publik = WifiPublik_m::orderBy('id', 'DESC')->paginate();
 
         //render view with posts
-        return view('data-wifi-publik.index',['title' => 'Data CCTV Publik Kota Banjarmasin'], compact('publik'));
+        return view('data-wifi-publik.index',['title' => 'Data WIFI Publik Kota Banjarmasin'], compact('publik'));
     }
 
     /**
