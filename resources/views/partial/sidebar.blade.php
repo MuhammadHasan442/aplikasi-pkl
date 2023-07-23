@@ -18,14 +18,14 @@
             <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item {{ request()->Is('list-ip') ? 'active':'' }}">
+    {{-- <li class="nav-item {{ request()->Is('list-ip') ? 'active':'' }}">
         <a class="nav-link" href="list-ip">
             <i class="fa fa-link"></i>
             <span>Daftar IP</span></a>
-    </li>
+    </li> --}}
 
-    <li class="nav-item {{ request()->Is('list-merk') ? 'active':'' }}">
-        <a class="nav-link" href="list-merk">
+    <li class="nav-item {{ request()->Is('data-merk') ? 'active':'' }}">
+        <a class="nav-link" href="data-merk">
             <i class="fa fa-list-ul"></i>
             <span>Daftar Merk</span></a>
     </li>
@@ -77,8 +77,8 @@
             <span>Data Perangkat Rusak</span></a>
     </li>
 
-    <li class="nav-item {{ request()->Is('data-pemeliharaan-perangkat') ? 'active':'' }}">
-        <a class="nav-link" href="data-pemeliharaan-perangkat">
+    <li class="nav-item {{ request()->Is('pemeliharaan-perangkat') ? 'active':'' }}">
+        <a class="nav-link" href="pemeliharaan-perangkat">
             <i class="fa fa-wrench"></i>
             <span>Data Pemeliharaan Perangkat</span></a>
     </li>

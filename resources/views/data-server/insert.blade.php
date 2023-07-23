@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-server.store') }}" method="POST">
+                <form action="{{ route('data-server.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <input type="hidden" name="sn" id="sn"> --}}
                     <div class="form-group form-row">
@@ -60,6 +60,10 @@
                             <label for="penggunaan">Penggunaan</label>
                             <input type="text" class="form-control" name="penggunaan" aria-describedby="penggunaanServer">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar">
                     </div>
             </div>
             <div class="modal-footer">

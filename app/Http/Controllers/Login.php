@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class Login extends Controller
 {
+
+    protected $remember = true;
+
     public function login()
     {
         $data['title'] = 'Aplikasi PKL - Login';
@@ -23,7 +26,9 @@ class Login extends Controller
         ]);
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+
             $request->session()->regenerate();
+
             return redirect()->intended('dashboard');
         }
 

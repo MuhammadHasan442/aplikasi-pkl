@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <input type="hidden" name="sn" id="sn"> --}}
                     <div class="form-group">
@@ -24,7 +24,6 @@
                         <label for="ssid">SSID</label>
                         <input type="text" class="form-control" name="ssid" aria-describedby="ssid">
                     </div>
-
                     <div class="form-group">
                         <label for="letak">Letak</label>
                         <input type="text" class="form-control" name="letak" aria-describedby="letak">
@@ -33,6 +32,10 @@
                     <div class="form-group">
                         <label for="tahun">Tahun</label>
                         <input type="text" class="form-control" name="tahun" aria-describedby="tahun">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar">
                     </div>
             </div>
             <div class="modal-footer">

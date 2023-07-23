@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                 <form action="{{ route('wifi-publik') }}" method="POST">
+                 <form action="{{ route('wifi-publik') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="post_id" id="post_id">
                     <div class="form-group">
@@ -24,7 +24,6 @@
                         <label for="ssid">SSID</label>
                         <input type="text" class="form-control" name="ssid" aria-describedby="ssid" id="ssid">
                     </div>
-
                     <div class="form-group">
                         <label for="letak">Letak</label>
                         <input type="text" class="form-control" name="letak" aria-describedby="letak" id="letak">
@@ -33,6 +32,10 @@
                     <div class="form-group">
                         <label for="tahun">Tahun</label>
                         <input type="text" class="form-control" name="tahun" aria-describedby="tahun" id="tahun">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar">
                     </div>
             </div>
             <div class="modal-footer">

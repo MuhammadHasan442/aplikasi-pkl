@@ -25,13 +25,35 @@ class DataServer extends Controller
 
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            // 'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
+        ]);
+
         try {
-            $cek = Server_m::where('ip', $request->ip)->first();
-            if ($cek == null) {
+
+            if (Server_m::where('ip', $request->ip)->exists()) {
+
+                return redirect()->route('data-server.index')->with(['warning' => 'IP Sudah Ada!']);
+
+            } else {
+
+                if ($request->gambar) {
+
+                    $file = $request->file('gambar')->store('foto/server', 'public');
+
+                } else {
+
+                    $file = 'null';
+
+                }
+
                 Server_m::create([
                     'sn'            => $request->sn,
                     'ip'            => $request->ip,
                     'merk_server'   => $request->merkserver,
+                    'gambar'        => $file,
                     'jenis'         => $request->jenis,
                     'hardisk'       => $request->hardisk,
                     'ram'           => $request->ram,
@@ -40,12 +62,15 @@ class DataServer extends Controller
                     'tahun'         => $request->tahun,
                     'penggunaan'    => $request->penggunaan
                 ]);
+
                 return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Disimpan!']);
-            } else {
-                throw new Exception("Data IP Sudah Ada");
+
             }
+
         } catch (\Throwable $th) {
+
             return redirect()->route('data-server.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
     }
 
@@ -84,10 +109,26 @@ class DataServer extends Controller
 
     public function ubah(Request $request)
     {
+
+        $update = Server_m::where('id', $request->post_id)->firstOrfail();
+
         try {
+
             $cek = Server_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
+
             if ($cek == null) {
-                $update = Server_m::where('id', $request->post_id)->firstOrfail();
+
+                if ($request->gambar) {
+                    if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                        \Storage::delete('public/'.$update->gambar);
+                        $file = $request->file('gambar')->store('foto/server', 'public');
+                        $update->gambar = $file;
+                    } else {
+                      $file = $request->file('gambar')->store('foto/server', 'public');
+                      $update->gambar = $file;
+                    }
+                }
+
                 $update->sn            = $request->snok;
                 $update->ip            = $request->ip;
                 $update->merk_server   = $request->merkserver;
@@ -99,12 +140,19 @@ class DataServer extends Controller
                 $update->tahun         = $request->tahun;
                 $update->penggunaan    = $request->penggunaan;
                 $update->save();
+
                 return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
             } else {
+
                 throw new Exception("Data IP Sudah Ada");
+
             }
+
         } catch (\Throwable $th) {
+
             return redirect()->route('data-server.index')->with(['warning' => 'IP Sudah Ada!']);
+
         }
     }
 
@@ -116,33 +164,47 @@ class DataServer extends Controller
      */
     public function destroy(Server_m $server_m, Request $request)
     {
+
+        $data = Server_m::firstOrfail();
+        if ($data) {
+            \Storage::delete('public/'.$data->gambar);
+        }
+
         Server_m::where('id', $request->id)->delete();
+
         return redirect()->route('data-server.index')->with(['success' => 'Data Berhasil Dihapus!']);
+
     }
 
     public function getAPI($id)
     {
+
         $server = Server_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
-{
-    if ($request->tahun == 'semua'){
-        $data = Server_m::all();
-    } else {
-        $data = Server_m::where('tahun', $request->tahun)->get();
-    }
+    {
 
-    $pdf = PDF::loadView('data-server.pdf', [
-        'data' => $data
-    ])->setPaper('A4', 'Landscape');
+        if ($request->tahun == 'semua'){
 
-    $nama = 'laporan data Server '.$request->tahun.'.pdf';
-    return $pdf->download($nama);
+            $data = Server_m::all();
 
-    // return view('data-server.pdf',['title' => 'Data Server'], compact('data'));
+        } else {
+
+            $data = Server_m::where('tahun', $request->tahun)->get();
+        }
+
+        $pdf = PDF::loadView('data-server.pdf', [
+            'data' => $data
+        ])->setPaper('A4', 'Landscape');
+
+        $nama = 'laporan data Server '.$request->tahun.'.pdf';
+        return $pdf->download($nama);
+
+        // return view('data-server.pdf',['title' => 'Data Server'], compact('data'));
 
 }
 }

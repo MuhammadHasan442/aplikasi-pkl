@@ -19,6 +19,7 @@ class WifiPublik extends Controller
 
         //render view with posts
         return view('data-wifi-publik.index',['title' => 'Data WIFI Publik Kota Banjarmasin'], compact('publik'));
+
     }
 
     /**
@@ -39,31 +40,49 @@ class WifiPublik extends Controller
      */
      public function store(Request $request)
      {
-        // try {
-        //     $cek = WifiPublik_m::where('ip', $request->ip)->first();
-        //     if ($cek == null) {
-        //         WifiPublik_m::create([
-        //               'sn'            => $request->sn,
-        //               'merk_wifi'     => $request->merkcctv,
-        //               'ssid'          => $request->ssid,
-        //               'letak'         => $request->letak,
-        //               'tahun'         => $request->tahun
-        //        ]);
-        //        return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        //     } else {
-        //         throw new Exception("Data IP Sudah Ada");
-        //     }
-        // } catch (\Throwable $th) {
-        //     return redirect()->route('data-wifi-publik.index')->with(['warning' => 'IP Sudah Ada!']);
-        // }
-        WifiPublik_m::create([
-            'sn'            => $request->sn,
-            'merk_wifi'     => $request->merkwifi,
-            'ssid'          => $request->ssid,
-            'letak'         => $request->letak,
-            'tahun'         => $request->tahun
+
+        $this->validate($request, [
+            // 'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
         ]);
-        return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
+        try {
+
+            $cek = WifiPublik_m::where('ip', $request->ip)->first();
+
+            if ($cek == null) {
+
+                if ($request->gambar) {
+
+                    $file = $request->file('gambar')->store('foto/wifi-publik', 'public');
+
+                } else {
+
+                    $file = 'null';
+
+                }
+
+                WifiPublik_m::create([
+                    'sn'            => $request->sn,
+                    'merk_wifi'     => $request->merkcctv,
+                    'gambar'        => $file,
+                    'ssid'          => $request->ssid,
+                    'letak'         => $request->letak,
+                    'tahun'         => $request->tahun
+                ]);
+
+                return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
+            } else {
+
+                throw new Exception("Data IP Sudah Ada");
+
+            }
+        } catch (\Throwable $th) {
+
+            return redirect()->route('data-wifi-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+
+        }
 
      }
 
@@ -117,14 +136,29 @@ class WifiPublik extends Controller
      */
     public function ubah(Request $request)
     {
+
         $update = WifiPublik_m::where('id', $request->post_id)->firstOrfail();
+
+        if ($request->gambar) {
+            if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                \Storage::delete('public/'.$update->gambar);
+                $file = $request->file('gambar')->store('foto/wifi-publik', 'public');
+                $update->gambar = $file;
+            } else {
+              $file = $request->file('gambar')->store('foto/wifi-publik', 'public');
+              $update->gambar = $file;
+            }
+        }
+
         $update->sn             = $request->sn;
         $update->merk_wifi      = $request->merkwifi;
         $update->ssid           = $request->ssid;
         $update->letak          = $request->letak;
         $update->tahun          = $request->tahun;
         $update->save();
+
         return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
         // try {
         //     $cek = WifiPublik_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
         //     if ($cek == null) {
@@ -140,19 +174,31 @@ class WifiPublik extends Controller
     }
 
     public function destroy(WifiPublik_m $WifiPublik_m, Request $request)
-     {
+    {
+
+        $data = WifiPublik_m::firstOrfail();
+        if ($data) {
+            \Storage::delete('public/'.$data->gambar);
+        }
+
         WifiPublik_m::where('id', $request->id)->delete();
+
         return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Dihapus!']);
+
     }
+
     public function getAPI($id)
     {
+
         $server = WifiPublik_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
     {
+
         if ($request->tahun == 'semua'){
             $data = WifiPublik_m::all();
         } else {
@@ -162,6 +208,7 @@ class WifiPublik extends Controller
         $pdf = PDF::loadView('data-wifi-publik.pdf', [
             'data' => $data
         ]);
+
         $nama = 'laporan wifi publik - '.$request->tahun.'.pdf';
         return $pdf->download($nama);
     }

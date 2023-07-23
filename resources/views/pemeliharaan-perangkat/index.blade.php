@@ -23,30 +23,38 @@
             @include('partial.notif')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
+                      <tr>
                         <th scope="col">No</th>
-                        <th scope="col">SN</th>
-                        <th scope="col">Merk Wifi</th>
-                        <th scope="col">Foto</th>
-                        <th scope="col">SSID</th>
-                        <th scope="col">Letak</th>
-                        <th scope="col">Tahun</th>
+                        <th scope="col">Gambar</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Satuan</th>
+                        <th scope="col">Harga (Rp)</th>
+                        <th scope="col">Total Harga</th>
+                        <th scope="col">Harga Ekatalog/item (Rp)</th>
+                        <th scope="col">Harga Nego/item (Rp)</th>
+                        <th scope="col">Link</th>
                         <th scope="col">AKSI</th>
-                    </tr>
+                      </tr>
                     </thead>
                     <tbody>
-                    @forelse ($publik as $key => $post)
-                    <tr>
+                      @forelse ($pelihara as $key => $post)
+                        <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
-                            <td>{{ $post->merk_wifi }}</td>
+                            <td>{{ $post->ip }}</td>
+                            <td>{{ $post->merk_server }}</td>
                             <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
-                            <td>{{ $post->ssid }}</td>
-                            <td>{{ $post->letak }}</td>
+                            <td>{{ $post->jenis }}</td>
+                            <td>{{ $post->hardisk }}</td>
+                            <td>{{ $post->ram }}</td>
+                            <td>{{ $post->processor }}</td>
+                            <td>{{ $post->os }}</td>
                             <td>{{ $post->tahun }}</td>
+                            <td>{{ $post->penggunaan }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-wifi-publik.destroy', $post->id) }}" method="POST">
-                                    <input type="hidden" value="{{$post->id}}" name="id" id="id">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pemeliharaan-perangkat.destroy', $post->id) }}" method="POST">
+                                    <input type="hidden" value="{{$post->id}}" name="id">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
                                         @csrf
@@ -56,11 +64,11 @@
                                 </form>
                             </td>
                         </tr>
-                    @empty
-                        <div class="alert alert-danger">
-                            Data Belum Tersedia.
-                        </div>
-                    @endforelse
+                      @empty
+                          <div class="alert alert-danger">
+                              Data Belum Tersedia.
+                          </div>
+                      @endforelse
                     </tbody>
                 </table>
             </div>
@@ -69,30 +77,34 @@
     @push('js')
     <script>
         function get_data(id) {
+
             // JavaScript untuk ambil data buat Edit Data
-            $.ajax({
-                url: "/getWifiPublik/"+id,
-                type: 'GET',
-                dataType: 'json', // added data type
-                success: function(res) {
-                    for (const iterator of res) {
-                        $('#post_id').val(`${iterator.id}`)
-                        $('#sn').val(`${iterator.sn}`)
-                        $('#merkwifi').val(`${iterator.merk_wifi}`)
-                        $('#ssid').val(`${iterator.ssid}`)
-                        $('#letak').val(`${iterator.letak}`)
-                        $('#tahun').val(`${iterator.tahun}`)
-                    }
-                },
-                onError: function (err) {
-                    console.log(err)
+
+         $.ajax({
+            url: "/getServer/"+id,
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function(res) {
+                for (const iterator of res) {
+                    $('#post_id').val(`${iterator.id}`)
+                    $('#snok').val(`${iterator.sn}`)
+                    $('#ipok').val(`${iterator.ip}`)
+                    $('#merkserver').val(`${iterator.merk_server}`)
+                    $('#jenis').val(`${iterator.jenis}`)
+                    $('#processor').val(`${iterator.processor}`)
+                    $('#ram').val(`${iterator.ram}`)
+                    $('#hardisk').val(`${iterator.hardisk}`)
+                    $('#os').val(`${iterator.os}`)
+                    $('#tahun').val(`${iterator.tahun}`)
+                    $('#penggunaan').val(`${iterator.penggunaan}`)
                 }
-            });
+            }
+        });
 
         }
     </script>
     @endpush
-    @include('data-wifi-publik.insert')
-    @include('data-wifi-publik.edit')
-    @include('data-wifi-publik.cetak')
+    @include('pemeliharaan-perangkat.insert')
+    @include('pemeliharaan-perangkat.edit')
+    @include('pemeliharaan-perangkat.cetak')
 @endsection

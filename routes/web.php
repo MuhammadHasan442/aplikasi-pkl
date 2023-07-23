@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\DataServer;
+use App\Http\Controllers\MerkBarang;
 use App\Http\Controllers\PerangkatJar;
 use App\Http\Controllers\NvrCctv;
 use App\Http\Controllers\CctvPemko;
 use App\Http\Controllers\CctvPublik;
 use App\Http\Controllers\AccessPoint;
 use App\Http\Controllers\WifiPublik;
+use App\Http\Controllers\Pemeliharaan;
 use App\Http\Controllers\Login;
 
 /*
@@ -36,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('dashboard', [Dashboard::class, 'index']);
 
+    Route::resource('/data-merk', MerkBarang::class);
     Route::resource('/data-server', DataServer::class);
     Route::resource('/data-perangkat-jaringan', PerangkatJar::class);
     Route::resource('/data-nvr-cctv', NvrCctv::class);
@@ -43,6 +46,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-cctv-publik', CctvPublik::class);
     Route::resource('/data-access-point', AccessPoint::class);
     Route::resource('/data-wifi-publik', WifiPublik::class);
+    Route::resource('/pemeliharaan-perangkat', Pemeliharaan::class);
+
+    Route::get('getMerk/{id}', [MerkBarang::class, 'getAPI']);
+    Route::post('ubahMerk', [MerkBarang::class, 'update'])->name('merk');
 
     Route::get('getServer/{id}', [DataServer::class, 'getAPI']);
     Route::post('ubahData', [DataServer::class, 'ubah'])->name('Ubah');
@@ -71,4 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('getWifiPublik/{id}', [WifiPublik::class, 'getAPI']);
     Route::post('ubahWifiPublik', [WifiPublik::class, 'ubah'])->name('wifi-publik');
     Route::post('cetakWifiPublik', [WifiPublik::class, 'getPDF'])->name('pdfWifi');
+
+    Route::get('getPemeliharaan/{id}', [Pemeliharaan::class, 'getAPI']);
+    Route::post('ubahPemeliharaan', [Pemeliharaan::class, 'update'])->name('pemeliharaan');
+    Route::post('cetakPemeliharaan', [Pemeliharaan::class, 'getPDF'])->name('pdfPemeliharaan');
 });

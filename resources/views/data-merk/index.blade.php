@@ -12,12 +12,6 @@
                 </span>
                 <span class="text">Tambah Data</span>
             </a>
-            <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#cetakModal">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-pdf"></i>
-                </span>
-                <span class="text">Cetak Data</span>
-            </a>
             <div class="table-responsive">
             <br>
             @include('partial.notif')
@@ -25,12 +19,8 @@
                     <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">SN</th>
-                        <th scope="col">Merk Wifi</th>
-                        <th scope="col">Foto</th>
-                        <th scope="col">SSID</th>
-                        <th scope="col">Letak</th>
-                        <th scope="col">Tahun</th>
+                        <th scope="col">Nama Merk</th>
+                        <th scope="col">Keterangan</th>
                         <th scope="col">AKSI</th>
                     </tr>
                     </thead>
@@ -38,14 +28,10 @@
                     @forelse ($publik as $key => $post)
                     <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $post->sn }}</td>
-                            <td>{{ $post->merk_wifi }}</td>
-                            <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
-                            <td>{{ $post->ssid }}</td>
-                            <td>{{ $post->letak }}</td>
-                            <td>{{ $post->tahun }}</td>
+                            <td>{{ $post->nama }}</td>
+                            <td>{{ $post->keterangan }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-wifi-publik.destroy', $post->id) }}" method="POST">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('data-merk.destroy', $post->id) }}" method="POST">
                                     <input type="hidden" value="{{$post->id}}" name="id" id="id">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
@@ -71,17 +57,14 @@
         function get_data(id) {
             // JavaScript untuk ambil data buat Edit Data
             $.ajax({
-                url: "/getWifiPublik/"+id,
+                url: "/getMerk/"+id,
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
-                        $('#sn').val(`${iterator.sn}`)
-                        $('#merkwifi').val(`${iterator.merk_wifi}`)
-                        $('#ssid').val(`${iterator.ssid}`)
-                        $('#letak').val(`${iterator.letak}`)
-                        $('#tahun').val(`${iterator.tahun}`)
+                        $('#merk').val(`${iterator.nama}`)
+                        $('#keterangan').val(`${iterator.keterangan}`)
                     }
                 },
                 onError: function (err) {
@@ -92,7 +75,7 @@
         }
     </script>
     @endpush
-    @include('data-wifi-publik.insert')
-    @include('data-wifi-publik.edit')
-    @include('data-wifi-publik.cetak')
+    @include('data-merk.insert')
+    @include('data-merk.edit')
+    @include('data-merk.cetak')
 @endsection

@@ -28,6 +28,7 @@
                         <th scope="col">SN</th>
                         <th scope="col">IP Address</th>
                         <th scope="col">Merk Server</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Jenis</th>
                         <th scope="col">HDD</th>
                         <th scope="col">RAM</th>
@@ -45,6 +46,8 @@
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->ip }}</td>
                             <td>{{ $post->merk_server }}</td>
+                            {{-- <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td> --}}
+                            <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->jenis }}</td>
                             <td>{{ $post->hardisk }}</td>
                             <td>{{ $post->ram }}</td>
