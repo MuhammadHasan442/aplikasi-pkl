@@ -23,36 +23,31 @@
             @include('partial.notif')
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                      <tr>
+                    <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Gambar</th>
-                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Uraian</th>
+                        <th scope="col">Volume</th>
                         <th scope="col">Unit</th>
                         <th scope="col">Satuan</th>
-                        <th scope="col">Harga (Rp)</th>
-                        <th scope="col">Total Harga</th>
-                        <th scope="col">Harga Ekatalog/item (Rp)</th>
-                        <th scope="col">Harga Nego/item (Rp)</th>
-                        <th scope="col">Link</th>
+                        <th scope="col">Harga Satuan (Rp)</th>
+                        <th scope="col">Jumlah (Rp)</th>
                         <th scope="col">AKSI</th>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                      @forelse ($pelihara as $key => $post)
-                        <tr>
+                    @forelse ($publik as $key => $post)
+                    <tr>
                             <td>{{ $key + 1 }}</td>
                             <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
-                            <td>{{ $post->nama_barang }}</td>
+                            <td>{{ $post->uraian }}</td>
+                            <td>{{ $post->volume }}</td>
                             <td>{{ $post->unit }}</td>
-                            <td>{{ $post->satuan }}</td>
                             <td>{{ $post->harga }}</td>
-                            <td>{{ $post->total_harga }}</td>
-                            <td>{{ $post->ekatalog }}</td>
-                            <td>{{ $post->nego }}</td>
-                            <td>{{ $post->link }}</td>
+                            <td>{{ $post->jumlah }}</td>
                             <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pemeliharaan-perangkat.destroy', $post->id) }}" method="POST">
-                                    <input type="hidden" value="{{$post->id}}" name="id">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengadaan-perangkat.destroy', $post->id) }}" method="POST">
+                                    <input type="hidden" value="{{$post->id}}" name="id" id="id">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
                                         @csrf
@@ -62,11 +57,11 @@
                                 </form>
                             </td>
                         </tr>
-                      @empty
-                          <div class="alert alert-danger">
-                              Data Belum Tersedia.
-                          </div>
-                      @endforelse
+                    @empty
+                        <div class="alert alert-danger">
+                            Data Belum Tersedia.
+                        </div>
+                    @endforelse
                     </tbody>
                 </table>
             </div>
@@ -75,32 +70,30 @@
     @push('js')
     <script>
         function get_data(id) {
-
             // JavaScript untuk ambil data buat Edit Data
-
-         $.ajax({
-            url: "/getPemeliharaan/"+id,
-            type: 'GET',
-            dataType: 'json', // added data type
-            success: function(res) {
-                for (const iterator of res) {
-                    $('#post_id').val(`${iterator.id}`)
-                    $('#nama').val(`${iterator.nama_barang}`)
-                    $('#unit').val(`${iterator.unit}`)
-                    $('#satuan').val(`${iterator.satuan}`)
-                    $('#harga').val(`${iterator.harga}`)
-                    $('#total').val(`${iterator.total_harga}`)
-                    $('#ekatalog').val(`${iterator.ekatalog}`)
-                    $('#nego').val(`${iterator.nego}`)
-                    $('#link').val(`${iterator.link}`)
+            $.ajax({
+                url: "/getWifiPublik/"+id,
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(res) {
+                    for (const iterator of res) {
+                        $('#post_id').val(`${iterator.id}`)
+                        $('#sn').val(`${iterator.sn}`)
+                        $('#merkwifi').val(`${iterator.merk_wifi}`)
+                        $('#ssid').val(`${iterator.ssid}`)
+                        $('#letak').val(`${iterator.letak}`)
+                        $('#tahun').val(`${iterator.tahun}`)
+                    }
+                },
+                onError: function (err) {
+                    console.log(err)
                 }
-            }
-        });
+            });
 
         }
     </script>
     @endpush
-    @include('pemeliharaan-perangkat.insert')
-    @include('pemeliharaan-perangkat.edit')
-    @include('pemeliharaan-perangkat.cetak')
+    @include('pengadaan-perangkat.insert')
+    @include('pengadaan-perangkat.edit')
+    @include('pengadaan-perangkat.cetak')
 @endsection

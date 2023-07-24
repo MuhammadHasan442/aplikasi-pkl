@@ -11,6 +11,7 @@ use App\Http\Controllers\CctvPublik;
 use App\Http\Controllers\AccessPoint;
 use App\Http\Controllers\WifiPublik;
 use App\Http\Controllers\Pemeliharaan;
+use App\Http\Controllers\Pengadaan;
 use App\Http\Controllers\Login;
 
 /*
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-access-point', AccessPoint::class);
     Route::resource('/data-wifi-publik', WifiPublik::class);
     Route::resource('/pemeliharaan-perangkat', Pemeliharaan::class);
+    Route::resource('/pengadaan-perangkat', Pengadaan::class);
 
     Route::get('getMerk/{id}', [MerkBarang::class, 'getAPI']);
     Route::post('ubahMerk', [MerkBarang::class, 'update'])->name('merk');
@@ -82,4 +84,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('getPemeliharaan/{id}', [Pemeliharaan::class, 'getAPI']);
     Route::post('ubahPemeliharaan', [Pemeliharaan::class, 'update'])->name('pemeliharaan');
     Route::post('cetakPemeliharaan', [Pemeliharaan::class, 'getPDF'])->name('pdfPemeliharaan');
+
+    Route::get('getPengadaan/{id}', [Pengadaan::class, 'getAPI']);
+    Route::post('ubahPengadaan', [Pengadaan::class, 'update'])->name('pengadaan');
+    Route::post('cetakPengadaan', [Pengadaan::class, 'getPDF'])->name('pdfPengadaan');
 });

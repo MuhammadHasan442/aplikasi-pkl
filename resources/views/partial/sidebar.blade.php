@@ -83,8 +83,8 @@
             <span>Data Pemeliharaan Perangkat</span></a>
     </li>
 
-    <li class="nav-item {{ request()->Is('data-pengadaan-perangkat') ? 'active':'' }}">
-        <a class="nav-link" href="data-pengadaan-perangkat">
+    <li class="nav-item {{ request()->Is('pengadaan-perangkat') ? 'active':'' }}">
+        <a class="nav-link" href="pengadaan-perangkat">
             <i class="fas fa-boxes"></i>
             <span>Data Pengadaan Perangkat</span></a>
     </li>

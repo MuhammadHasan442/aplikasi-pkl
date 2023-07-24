@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-server.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{-- <input type="hidden" name="sn" id="sn"> --}}
                     <div class="form-group form-row">

@@ -163,4 +163,13 @@ class Pemeliharaan extends Controller
         return redirect()->route('pemeliharaan-perangkat.index')->with(['success' => 'Data Berhasil Dihapus!']);
 
     }
+
+    public function getAPI($id)
+    {
+
+        $server = Pemeliharaan_m::where('id', $id)->get();
+
+        return response()->json($server, 200, ['pesan' => 'success'] );
+
+    }
 }

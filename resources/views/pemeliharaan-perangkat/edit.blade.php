@@ -9,61 +9,50 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('Ubah') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pemeliharaan') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="post_id" id="post_id">
-                    <div class="form-row">
+                    <div class="form-group form-row">
                         <div class="col-md-6">
-                            <label for="sn">SN</label>
-                            <input type="text" class="form-control" name="snok" aria-describedby="sn" id="snok" required>
+                            <label for="nama">Nama Barang</label>
+                            <input type="nama" class="form-control" name="nama" aria-describedby="nama" id="nama" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="ip">IP Address</label>
-                            <input type="text" class="form-control" name="ip" aria-describedby="ip" id="ipok" required>
+                        <div class="col-md-3">
+                            <label for="unit">Unit</label>
+                            <input type="text" class="form-control" name="unit" aria-describedby="unit" id="unit" required>
                         </div>
-                    </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="merkserver">Merk Server</label>
-                            <input type="text" class="form-control" name="merkserver" id="merkserver" aria-describedby="merkServer" required></div>
-                        <div class="col-md-6">
-                            <label for="jenis">Jenis Server</label>
-                            <input type="text" class="form-control" name="jenis" id="jenis" aria-describedby="jenisServer" required></div>
+                        <div class="col-md-3">
+                            <label for="satuan">Satuan</label>
+                            <input type="text" class="form-control" name="satuan" aria-describedby="satuan" id="satuan" required>
+                        </div>
                     </div>
                     <hr>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <label for="processor">Processor</label>
-                            <input type="text" class="form-control" name="processor" id="processor" aria-describedby="processorServer" required>
+                    <div class="form-group form-row">
+                        <div class="col-md-6">
+                            <label for="harga">Harga (Rp)</label>
+                            <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga" required></div>
+                        <div class="col-md-6">
+                            <label for="total">Total Harga (Rp)</label>
+                            <input type="text" class="form-control" name="total" aria-describedby="total" id="total" required></div>
+                    </div>
+                    <div class="form-group form-row">
+                        <div class="col-md-6">
+                            <label for="ekatalog">Harga E-Katalog/item (Rp)</label>
+                            <input type="text" class="form-control" name="ekatalog" aria-describedby="ekatalog" id="ekatalog" required>
                         </div>
-                        <div class="col-md-3">
-                            <label for="ram">RAM</label>
-                            <input type="text" class="form-control" name="ram" id="ram" aria-describedby="ramServer" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="hardisk">Harddisk</label>
-                            <input type="text" class="form-control" name="hardisk" id="hardisk" aria-describedby="hardiskServer" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="os">OS</label>
-                            <input type="text" class="form-control" name="os" id="os" aria-describedby="osServer" required>
+                        <div class="col-md-6">
+                            <label for="nego">Harga Nego/item (Rp)</label>
+                            <input type="text" class="form-control" name="nego" aria-describedby="nego" id="nego" required>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <label for="tahun">Tahun</label>
-                            <input type="text" class="form-control" name="tahun" id="tahun" aria-describedby="tahunServer" required>
-                        </div>
-                        <div class="col-md-8">
-                            <label for="penggunaan">Penggunaan</label>
-                            <input type="text" class="form-control" name="penggunaan" id="penggunaan" aria-describedby="penggunaanServer">
-                        </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="link">Link Barang</label>
+                        <input type="text" class="form-control" name="link" id="link" aria-describedby="link">
                     </div>
                     <div class="form-group">
                         <label for="gambar">Foto</label>
-                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar" id="gambar">
+                        <input type="file" class="form-control" name="gambar" id="gambar" aria-describedby="gambar">
                     </div>
             </div>
             <div class="modal-footer">
