@@ -24,11 +24,11 @@
             <span>Daftar IP</span></a>
     </li> --}}
 
-    <li class="nav-item {{ request()->Is('data-merk') ? 'active':'' }}">
+    {{-- <li class="nav-item {{ request()->Is('data-merk') ? 'active':'' }}">
         <a class="nav-link" href="data-merk">
             <i class="fa fa-list-ul"></i>
             <span>Daftar Merk</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -71,8 +71,8 @@
         </div>
     </li>
 
-    <li class="nav-item {{ request()->Is('data-perangkat-rusak') ? 'active':'' }}">
-        <a class="nav-link" href="data-perangkat-rusak">
+    <li class="nav-item {{ request()->Is('perangkat-rusak') ? 'active':'' }}">
+        <a class="nav-link" href="perangkat-rusak">
             <i class="fa fa-unlink"></i>
             <span>Data Perangkat Rusak</span></a>
     </li>

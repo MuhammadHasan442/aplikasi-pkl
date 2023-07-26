@@ -72,17 +72,17 @@
         function get_data(id) {
             // JavaScript untuk ambil data buat Edit Data
             $.ajax({
-                url: "/getWifiPublik/"+id,
+                url: "/getPengadaan/"+id,
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
-                        $('#sn').val(`${iterator.sn}`)
-                        $('#merkwifi').val(`${iterator.merk_wifi}`)
-                        $('#ssid').val(`${iterator.ssid}`)
-                        $('#letak').val(`${iterator.letak}`)
-                        $('#tahun').val(`${iterator.tahun}`)
+                        $('#uraian').val(`${iterator.uraian}`)
+                        $('#volume').val(`${iterator.volume}`)
+                        $('#unit').val(`${iterator.unit}`)
+                        $('#harga').val(`${iterator.harga}`)
+                        $('#jumlah').val(`${iterator.jumlah}`)
                     }
                 },
                 onError: function (err) {

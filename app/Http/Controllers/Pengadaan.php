@@ -48,39 +48,30 @@ class Pengadaan extends Controller
 
         try {
 
-            $cek = Pengadaan_m::where('ip', $request->ip)->first();
+            if ($request->gambar) {
 
-            if ($cek == null) {
-
-                if ($request->gambar) {
-
-                    $file = $request->file('gambar')->store('foto/pengadaan', 'public');
-
-                } else {
-
-                    $file = 'null';
-
-                }
-
-                Pengadaan_m::create([
-                    'gambar'     => $file,
-                    'uraian'     => $request->uraian,
-                    'volume'     => $request->volume,
-                    'unit'       => $request->unit,
-                    'harga'      => $request->harga,
-                    'jumlah'     => $request->jumlah
-                ]);
-
-                return redirect()->route('pengadaan-perangkat.index')->with(['success' => 'Data Berhasil Disimpan!']);
+                $file = $request->file('gambar')->store('foto/pengadaan', 'public');
 
             } else {
 
-                throw new Exception("Data IP Sudah Ada");
+                $file = 'null';
 
             }
+
+            Pengadaan_m::create([
+                'gambar'     => $file,
+                'uraian'     => $request->uraian,
+                'volume'     => $request->volume,
+                'unit'       => $request->unit,
+                'harga'      => $request->harga,
+                'jumlah'     => $request->jumlah
+            ]);
+
+            return redirect()->route('pengadaan-perangkat.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
         } catch (\Throwable $th) {
 
-            return redirect()->route('pengadaan-perangkat.index')->with(['warning' => 'IP Sudah Ada!']);
+            return redirect()->route('pengadaan-perangkat.index')->with(['warning' => 'Pastikan semua field mengikuti tipe data yang benar!']);
 
         }
 
@@ -131,7 +122,6 @@ class Pengadaan extends Controller
             }
         }
 
-        $update->gambar     = $file;
         $update->uraian     = $request->uraian;
         $update->volume     = $request->volume;
         $update->unit       = $request->unit;
@@ -141,18 +131,6 @@ class Pengadaan extends Controller
 
         return redirect()->route('pengadaan-perangkat.index')->with(['success' => 'Data Berhasil Diupdate!']);
 
-        // try {
-        //     $cek = Pengadaan_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
-        //     if ($cek == null) {
-        //         $update = Pengadaan_m::where('id', $request->post_id)->firstOrfail();
-        //         $update->save();
-        //         return redirect()->route('pengadaan-perangkat.index')->with(['info' => 'Data Berhasil Diupdate!']);
-        //     } else {
-        //         throw new Exception("Data IP Sudah Ada");
-        //     }
-        // } catch (\Throwable $th) {
-        //     return redirect()->route('pengadaan-perangkat.index')->with(['warning' => 'IP Sudah Ada!']);
-        // }
     }
 
     /**
@@ -161,7 +139,7 @@ class Pengadaan extends Controller
      * @param  \App\Models\Pengadaan_m  $pengadaan_m
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengadaan_m $pengadaan_m, Request $req)
+    public function destroy(Pengadaan_m $pengadaan_m, Request $request)
     {
 
         $data = Pengadaan_m::firstOrfail();

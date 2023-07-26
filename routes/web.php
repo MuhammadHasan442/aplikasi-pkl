@@ -10,6 +10,7 @@ use App\Http\Controllers\CctvPemko;
 use App\Http\Controllers\CctvPublik;
 use App\Http\Controllers\AccessPoint;
 use App\Http\Controllers\WifiPublik;
+use App\Http\Controllers\PerangkatRusak;
 use App\Http\Controllers\Pemeliharaan;
 use App\Http\Controllers\Pengadaan;
 use App\Http\Controllers\Login;
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/data-cctv-publik', CctvPublik::class);
     Route::resource('/data-access-point', AccessPoint::class);
     Route::resource('/data-wifi-publik', WifiPublik::class);
+    Route::resource('/perangkat-rusak', PerangkatRusak::class);
     Route::resource('/pemeliharaan-perangkat', Pemeliharaan::class);
     Route::resource('/pengadaan-perangkat', Pengadaan::class);
 
@@ -80,6 +82,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('getWifiPublik/{id}', [WifiPublik::class, 'getAPI']);
     Route::post('ubahWifiPublik', [WifiPublik::class, 'ubah'])->name('wifi-publik');
     Route::post('cetakWifiPublik', [WifiPublik::class, 'getPDF'])->name('pdfWifi');
+
+    Route::get('getRusak/{id}', [PerangkatRusak::class, 'getAPI']);
+    Route::get('getKategori/{kategori}', [PerangkatRusak::class, 'getData']);
+    Route::post('ubahRusak', [PerangkatRusak::class, 'update'])->name('rusak');
+    Route::post('cetakRusak', [PerangkatRusak::class, 'getPDF'])->name('pdfRusak');
 
     Route::get('getPemeliharaan/{id}', [Pemeliharaan::class, 'getAPI']);
     Route::post('ubahPemeliharaan', [Pemeliharaan::class, 'update'])->name('pemeliharaan');

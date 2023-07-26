@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `access_point` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk_ap` varchar(200) NOT NULL,
+  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `tipe` varchar(200) NOT NULL,
   `nama_ap` varchar(100) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `cctv_pemko` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk_cctv` varchar(200) NOT NULL,
+  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `tipe` varchar(200) NOT NULL,
   `letak` varchar(100) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `cctv_pemko` (
 
 -- Membuang data untuk tabel data_perangkat.cctv_pemko: ~0 rows (lebih kurang)
 DELETE FROM `cctv_pemko`;
-INSERT INTO `cctv_pemko` (`id`, `sn`, `ip`, `merk_cctv`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
+INSERT INTO `cctv_pemko` (`id`, `sn`, `ip`, `merk`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
 	(5, '11111', '1.1.1.1', 'Hikvision', 'foto/cctv-pemko/DuUfIprsOC4vE6cth9OXUKpXfk4LeafQOJeW1h2S.png', '10G', 'Gedung B', '2022', '2023-07-20 04:26:29', '2023-07-18 00:11:08');
 
 -- membuang struktur untuk table data_perangkat.cctv_publik
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `cctv_publik` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(255) NOT NULL,
   `ip` varchar(255) NOT NULL,
-  `merk_cctv` varchar(255) NOT NULL,
+  `merk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `tipe` varchar(255) NOT NULL,
   `letak` varchar(255) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `cctv_publik` (
 
 -- Membuang data untuk tabel data_perangkat.cctv_publik: ~2 rows (lebih kurang)
 DELETE FROM `cctv_publik`;
-INSERT INTO `cctv_publik` (`id`, `sn`, `ip`, `merk_cctv`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
+INSERT INTO `cctv_publik` (`id`, `sn`, `ip`, `merk`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
 	(3, '9453', '10.10.10.7', 'Dahua', '', 'outdor', 'taman', '2017', '2023-07-12 04:08:36', '2023-07-12 04:08:36'),
 	(4, '4654165', '103.178.83.250', 'Dahua', 'foto/cctv-publik/BcEpeGy2VjVQsNQ0jf5KkoXoPM2wH2RQisqUSZiI.jpg', 'outdor', 'siring', '2020', '2023-07-20 07:49:21', '2023-07-12 07:01:31');
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `data_server` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk_server` varchar(200) DEFAULT NULL,
+  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `gambar` varchar(200) DEFAULT NULL,
   `jenis` varchar(200) DEFAULT NULL,
   `hardisk` varchar(100) DEFAULT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `data_server` (
 
 -- Membuang data untuk tabel data_perangkat.data_server: ~3 rows (lebih kurang)
 DELETE FROM `data_server`;
-INSERT INTO `data_server` (`id`, `sn`, `ip`, `merk_server`, `gambar`, `jenis`, `hardisk`, `ram`, `processor`, `os`, `tahun`, `penggunaan`, `updated_at`, `created_at`) VALUES
+INSERT INTO `data_server` (`id`, `sn`, `ip`, `merk`, `gambar`, `jenis`, `hardisk`, `ram`, `processor`, `os`, `tahun`, `penggunaan`, `updated_at`, `created_at`) VALUES
 	(7, 'SGH354VFC8', '103.178.83.87', 'Dell', 'null', 'Rak', '1000', '16 GB', '20 CORE ProLiant DL160 Gen10', 'Windows server 2008', '2017', 'proxmox, JDIH Pusat, Pentest Aplikasi', '2023-07-12 03:35:30', '2023-02-16 17:02:44'),
 	(8, 'SGH739T6MA', '103.178.83.249', 'HP', 'null', 'Rak', '320', '16 GB', '12 CORE ProLiant DL380P Gen8', 'Debian 6 non GUI', '2017', 'Naga Bungas, Epuskesmas v1', '2023-07-12 03:37:45', '2023-07-12 03:37:45'),
 	(9, 'SGH221VFC5', '103.178.83.250', 'Dell', 'null', 'Rak', '1000', '64 GB', '12 CORE ProLiant DL380P Gen8', 'Linux mint 18 GUI', '2016', 'Aplikasi Bakawan, Aset, Batarang PJU, Aksidisiring, esurat', '2023-07-12 03:43:05', '2023-07-12 03:43:05');
@@ -162,7 +162,7 @@ DROP TABLE IF EXISTS `nvr_cctv`;
 CREATE TABLE IF NOT EXISTS `nvr_cctv` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
-  `merk_nvr` varchar(200) NOT NULL,
+  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `video_ch` varchar(50) NOT NULL DEFAULT '',
   `hardisk` varchar(50) NOT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `nvr_cctv` (
 
 -- Membuang data untuk tabel data_perangkat.nvr_cctv: ~0 rows (lebih kurang)
 DELETE FROM `nvr_cctv`;
-INSERT INTO `nvr_cctv` (`id`, `sn`, `merk_nvr`, `gambar`, `video_ch`, `hardisk`, `penggunaan`, `tahun`, `updated_at`, `created_at`) VALUES
+INSERT INTO `nvr_cctv` (`id`, `sn`, `merk`, `gambar`, `video_ch`, `hardisk`, `penggunaan`, `tahun`, `updated_at`, `created_at`) VALUES
 	(2, '124124', 'Hikvision', 'foto/nvr/z9MWPWrDS5JZ9uvtmYH1s8Q8whHToxjaHBO1lCt7.png', '10', '10TB', 'Sistem Remote', '2022', '2023-07-20 04:25:02', '2023-02-06 17:42:50');
 
 -- membuang struktur untuk table data_perangkat.password_resets
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `pengadaan` (
   `updated_at` timestamp NOT NULL,
   `created_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Membuang data untuk tabel data_perangkat.pengadaan: ~0 rows (lebih kurang)
 DELETE FROM `pengadaan`;
@@ -235,7 +235,7 @@ DROP TABLE IF EXISTS `perangkat_jaringan`;
 CREATE TABLE IF NOT EXISTS `perangkat_jaringan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
-  `merk_perangkat` varchar(20) NOT NULL,
+  `merk` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `cpu` varchar(20) NOT NULL,
   `ram` varchar(20) NOT NULL,
   `lan_port` varchar(50) NOT NULL DEFAULT '',
@@ -248,8 +248,27 @@ CREATE TABLE IF NOT EXISTS `perangkat_jaringan` (
 
 -- Membuang data untuk tabel data_perangkat.perangkat_jaringan: ~0 rows (lebih kurang)
 DELETE FROM `perangkat_jaringan`;
-INSERT INTO `perangkat_jaringan` (`id`, `sn`, `merk_perangkat`, `cpu`, `ram`, `lan_port`, `tahun`, `updated_at`, `created_at`) VALUES
+INSERT INTO `perangkat_jaringan` (`id`, `sn`, `merk`, `cpu`, `ram`, `lan_port`, `tahun`, `updated_at`, `created_at`) VALUES
 	(3, '12312', '2131', '12321', '1212', '123', '123', '2023-07-12 21:52:04', '2023-07-12 21:52:04');
+
+-- membuang struktur untuk table data_perangkat.perangkat_rusak
+DROP TABLE IF EXISTS `perangkat_rusak`;
+CREATE TABLE IF NOT EXISTS `perangkat_rusak` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(255) NOT NULL,
+  `sn` varchar(255) NOT NULL,
+  `merk` varchar(255) NOT NULL,
+  `tahun` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  `created_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Membuang data untuk tabel data_perangkat.perangkat_rusak: ~0 rows (lebih kurang)
+DELETE FROM `perangkat_rusak`;
 
 -- membuang struktur untuk table data_perangkat.personal_access_tokens
 DROP TABLE IF EXISTS `personal_access_tokens`;
@@ -294,7 +313,7 @@ DROP TABLE IF EXISTS `wifi_publik`;
 CREATE TABLE IF NOT EXISTS `wifi_publik` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sn` varchar(255) DEFAULT NULL,
-  `merk_wifi` varchar(255) DEFAULT NULL,
+  `merk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `ssid` varchar(255) DEFAULT NULL,
   `letak` varchar(255) DEFAULT NULL,
   `tahun` varchar(255) DEFAULT NULL,
