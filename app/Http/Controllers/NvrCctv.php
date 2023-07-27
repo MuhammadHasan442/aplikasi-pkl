@@ -49,7 +49,7 @@ class NvrCctv extends Controller
 
             NvrCctv_m::create([
                 'sn'         => $request->sn,
-                'merk_nvr'   => $request->merknvr,
+                'merk'       => $request->merknvr,
                 'gambar'     => $file,
                 'video_ch'   => $request->videoch,
                 'hardisk'    => $request->hardisk,
@@ -127,7 +127,7 @@ class NvrCctv extends Controller
         }
 
         $update->sn             = $request->sn;
-        $update->merk_nvr       = $request->merknvr; //kiri database, kanan nama field
+        $update->merk           = $request->merknvr; //kiri database, kanan nama field
         $update->video_ch       = $request->videoch;
         $update->hardisk        = $request->hardisk;
         $update->penggunaan     = $request->penggunaan;

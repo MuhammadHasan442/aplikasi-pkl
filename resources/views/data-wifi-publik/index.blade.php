@@ -39,7 +39,7 @@
                     <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
-                            <td>{{ $post->merk_wifi }}</td>
+                            <td>{{ $post->merk }}</td>
                             <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->ssid }}</td>
                             <td>{{ $post->letak }}</td>
@@ -78,7 +78,7 @@
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
-                        $('#merkwifi').val(`${iterator.merk_wifi}`)
+                        $('#merkwifi').val(`${iterator.merk}`)
                         $('#ssid').val(`${iterator.ssid}`)
                         $('#letak').val(`${iterator.letak}`)
                         $('#tahun').val(`${iterator.tahun}`)

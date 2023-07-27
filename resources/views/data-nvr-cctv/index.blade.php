@@ -40,7 +40,7 @@
                     <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
-                            <td>{{ $post->merk_nvr }}</td>
+                            <td>{{ $post->merk }}</td>
                             <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->video_ch }}</td>
                             <td>{{ $post->hardisk }}</td>
@@ -81,7 +81,7 @@
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
-                        $('#merknvr').val(`${iterator.merk_nvr}`)
+                        $('#merknvr').val(`${iterator.merk}`)
                         $('#videoch').val(`${iterator.video_ch}`)
                         $('#hardisk').val(`${iterator.hardisk}`)
                         $('#penggunaan').val(`${iterator.penggunaan}`)

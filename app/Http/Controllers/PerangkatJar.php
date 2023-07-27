@@ -40,15 +40,42 @@ class PerangkatJar extends Controller
      */
     public function store(Request $request)
     {
-         PerangkatJar_m::create([
-            'sn'                    => $request->sn,
-            'merk_perangkat'        => $request->merkperangkat,
-            'cpu'                   => $request->cpu,
-            'ram'                   => $request->ram,
-            'lan_port'              => $request->lanport,
-            'tahun'                 => $request->tahun
+
+        $this->validate($request, [
+            // 'gambar' => 'required',
+            'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
         ]);
-        return redirect()->route('data-perangkat-jaringan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
+        try {
+
+            if ($request->gambar) {
+
+                $file = $request->file('gambar')->store('foto/perangkat-jar', 'public');
+
+            } else {
+
+                $file = 'null';
+
+            }
+
+            PerangkatJar_m::create([
+                'sn'                    => $request->sn,
+                'merk'                  => $request->merkperangkat,
+                'cpu'                   => $request->cpu,
+                'ram'                   => $request->ram,
+                'lan_port'              => $request->lanport,
+                'tahun'                 => $request->tahun,
+                'gambar'                => $file
+            ]);
+
+            return redirect()->route('data-perangkat-jaringan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
+        } catch (\Throwable $th) {
+
+            return redirect()->route('data-wifi-publik.index')->with(['warning' => 'Ada Kesalahan Input!']);
+
+        }
+
     }
 
     /**
@@ -99,9 +126,22 @@ class PerangkatJar extends Controller
 
     public function ubah(Request $request)
     {
+
         $update = PerangkatJar_m::where('id', $request->post_id)->firstOrfail();
+
+        if ($request->gambar) {
+            if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                \Storage::delete('public/'.$update->gambar);
+                $file = $request->file('gambar')->store('foto/perangkat-jar', 'public');
+                $update->gambar = $file;
+            } else {
+              $file = $request->file('gambar')->store('foto/perangkat-jar', 'public');
+              $update->gambar = $file;
+            }
+        }
+
         $update->sn                = $request->sn;
-        $update->merk_perangkat    = $request->merkperangkat; //kiri database, kanan nama field
+        $update->merk              = $request->merkperangkat; //kiri database, kanan nama field
         $update->cpu               = $request->cpu;
         $update->ram               = $request->ram;
         $update->lan_port          = $request->lanport;
@@ -109,13 +149,23 @@ class PerangkatJar extends Controller
         $update->save();
         return redirect()->route('data-perangkat-jaringan.index')->with(['success' => 'Data Berhasil Diupdate!']);
     }
+
     public function destroy(PerangkatJar_m $perangkatJar_m, Request $request)
-     {
+    {
+
+        $data = PerangkatJar_m::firstOrfail();
+        if ($data) {
+            \Storage::delete('public/'.$data->gambar);
+        }
+
         PerangkatJar_m::where('id', $request->id)->delete();
         return redirect()->route('data-perangkat-jaringan.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    
     }
+
     public function getAPI($id)
     {
+
         $server = PerangkatJar_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );

@@ -45,7 +45,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->ip }}</td>
-                            <td>{{ $post->merk_server }}</td>
+                            <td>{{ $post->merk }}</td>
                             {{-- <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td> --}}
                             <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->jenis }}</td>
@@ -92,7 +92,7 @@
                     $('#post_id').val(`${iterator.id}`)
                     $('#snok').val(`${iterator.sn}`)
                     $('#ipok').val(`${iterator.ip}`)
-                    $('#merkserver').val(`${iterator.merk_server}`)
+                    $('#merkserver').val(`${iterator.merk}`)
                     $('#jenis').val(`${iterator.jenis}`)
                     $('#processor').val(`${iterator.processor}`)
                     $('#ram').val(`${iterator.ram}`)

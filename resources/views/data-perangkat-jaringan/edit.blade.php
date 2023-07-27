@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                 <form action="{{ route('perangkat') }}" method="POST">
+                 <form action="{{ route('perangkat') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="post_id" id="post_id">
                     <div class="form-group">
@@ -38,6 +38,10 @@
                     <div class="form-group">
                         <label for="tahun">Tahun</label>
                         <input type="text" class="form-control" name="tahun" aria-describedby="tahun" id="tahun" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Foto</label>
+                        <input type="file" class="form-control" name="gambar" aria-describedby="gambar" id="gambar">
                     </div>
             </div>
             <div class="modal-footer">

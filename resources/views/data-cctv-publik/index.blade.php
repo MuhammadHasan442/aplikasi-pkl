@@ -41,7 +41,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
                             <td>{{ $post->ip }}</td>
-                            <td>{{ $post->merk_cctv }}</td>
+                            <td>{{ $post->merk }}</td>
                             <td><img src="{{ asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->tipe }}</td>
                             <td>{{ $post->letak }}</td>
@@ -81,7 +81,7 @@
                         $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
                         $('#ip').val(`${iterator.ip}`)
-                        $('#merkcctv').val(`${iterator.merk_cctv}`)
+                        $('#merkcctv').val(`${iterator.merk}`)
                         $('#tipe').val(`${iterator.tipe}`)
                         $('#letak').val(`${iterator.letak}`)
                         $('#tahun').val(`${iterator.tahun}`)

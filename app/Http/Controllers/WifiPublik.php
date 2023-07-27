@@ -64,7 +64,7 @@ class WifiPublik extends Controller
 
                 WifiPublik_m::create([
                     'sn'            => $request->sn,
-                    'merk_wifi'     => $request->merkcctv,
+                    'merk'          => $request->merkcctv,
                     'gambar'        => $file,
                     'ssid'          => $request->ssid,
                     'letak'         => $request->letak,
@@ -151,7 +151,7 @@ class WifiPublik extends Controller
         }
 
         $update->sn             = $request->sn;
-        $update->merk_wifi      = $request->merkwifi;
+        $update->merk           = $request->merkwifi;
         $update->ssid           = $request->ssid;
         $update->letak          = $request->letak;
         $update->tahun          = $request->tahun;
