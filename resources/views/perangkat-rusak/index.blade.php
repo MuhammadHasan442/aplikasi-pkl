@@ -50,7 +50,7 @@
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('perangkat-rusak.destroy', $post->id) }}" method="POST">
                                     <input type="hidden" value="{{$post->id}}" name="id" id="id">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        {{-- <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button> --}}
+                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -70,27 +70,72 @@
     </div>
     @push('js')
     <script>
-        // function get_data(id) {
-        //     // JavaScript untuk ambil data buat Edit Data
-        //     $.ajax({
-        //         url: "/getPengadaan/"+id,
-        //         type: 'GET',
-        //         dataType: 'json', // added data type
-        //         success: function(res) {
-        //             for (const iterator of res) {
-        //                 $('#post_id').val(`${iterator.id}`)
-        //                 $('#uraian').val(`${iterator.uraian}`)
-        //                 $('#volume').val(`${iterator.volume}`)
-        //                 $('#unit').val(`${iterator.unit}`)
-        //                 $('#harga').val(`${iterator.harga}`)
-        //                 $('#jumlah').val(`${iterator.jumlah}`)
-        //             }
-        //         },
-        //         onError: function (err) {
-        //             console.log(err)
-        //         }
-        //     });
-        // }
+        function get_data(id) {
+            // JavaScript untuk ambil data buat Edit Data
+            $.ajax({
+                url: "/getRusak/"+id,
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(res) {
+                    for (const iterator of res) {
+                        // console.log(iterator.kategori)
+                        $('#post_id').val(`${iterator.id}`)
+                        $('#kategori_e').val(`${iterator.kategori}`).prop('selected', true)
+                        if ($('#kategori_e').is(":selected")) {
+
+                            var kategori = $('#kategori_e').val();
+                            var serial = iterator.sn;
+                            // console.log(serial)
+
+                            $.ajax({
+                                url: "/getKategori/" + kategori,
+                                type: "GET",
+                                success: function(data) {
+
+                                    var y = ""
+
+                                    // y = '<option disabled selected>- Pilih Data -</option>'
+
+                                    for (i in data) {
+                                        if (data[i]['sn'] == serial) {
+                                            y += '<option value="'+ data[i]['sn'] +'" data-merke="'+ data[i]['merk'] +'" data-tahune="'+ data[i]['tahun'] +'" selected>'+ data[i]['sn'] +'</option>'
+                                        } else {
+                                            y += '<option value="'+ data[i]['sn'] +'" data-merke="'+ data[i]['merk'] +'" data-tahune="'+ data[i]['tahun'] +'">'+ data[i]['sn'] +'</option>'
+                                        }
+                                    }
+
+                                    $('#sn_e').html(y).prop('selected', true)  //blm selesai
+
+                                    if (($('#sn_e').is(":selected"))) {
+                                        var merk = $(this).children(':selected').data('merke')
+                                        var tahun = $(this).children(':selected').data('tahune')
+                                        // $('#merk_e').val(merk)
+                                        // $('#tahun_e').val(tahun)
+                                        console.log(merk, tahun)
+                                    }
+
+                                    // $('#sn_e').change(function() {
+                                    //     var merk = $(this).children(':selected').data('merk-e')
+                                    //     var tahun = $(this).children(':selected').data('tahun-e')
+                                    //     $('#merk_e').val(merk)
+                                    //     $('#tahun_e').val(tahun)
+                                    // })
+                                }
+                            });
+
+                        }
+                        // $('#sn_e').val(`${iterator.sn}`)
+                        // $('#merk_e').val(`${iterator.merk}`)
+                        // $('#tahun_e').val(`${iterator.tahun}`)
+                        $('#status_e').val(`${iterator.status}`)
+                        $('#keterangan_e').val(`${iterator.keterangan}`)
+                    }
+                },
+                onError: function (err) {
+                    console.log(err)
+                }
+            });
+        }
 
         $(function() {
 

@@ -65,39 +65,39 @@ class PerangkatRusak extends Controller
 
             }
 
-            if ($request->kategori == 'server') {
+            // if ($request->kategori == 'server') {
 
-                $kategori = 'Server';
+            //     $kategori = 'Server';
 
-            } if ($request->kategori == 'perangkatjar') {
+            // } if ($request->kategori == 'perangkatjar') {
 
-                $kategori = 'Perangkat Jaringan';
+            //     $kategori = 'Perangkat Jaringan';
 
-            } if ($request->kategori == 'ap') {
+            // } if ($request->kategori == 'ap') {
 
-                $kategori = 'Access Point';
+            //     $kategori = 'Access Point';
 
-            } if ($request->kategori == 'nvr') {
+            // } if ($request->kategori == 'nvr') {
 
-                $kategori = 'NVR CCTV';
+            //     $kategori = 'NVR CCTV';
 
-            } if ($request->kategori == 'cctv-pemko') {
+            // } if ($request->kategori == 'cctv-pemko') {
 
-                $kategori = 'CCTV Pemko';
+            //     $kategori = 'CCTV Pemko';
 
-            } if ($request->kategori == 'cctv-publik') {
+            // } if ($request->kategori == 'cctv-publik') {
 
-                $kategori = 'CCTV Publik';
+            //     $kategori = 'CCTV Publik';
 
-            } if ($request->kategori == 'wifi-publik') {
+            // } if ($request->kategori == 'wifi-publik') {
 
-                $kategori = 'Wifi Publik';
+            //     $kategori = 'Wifi Publik';
 
-            }
+            // }
 
             PerangkatRusak_m::create([
                 'gambar'       => $file,
-                'kategori'     => $kategori,
+                'kategori'     => $request->kategori,
                 'sn'           => $request->sn,
                 'merk'         => $request->merk,
                 'tahun'        => $request->tahun,
@@ -146,7 +146,29 @@ class PerangkatRusak extends Controller
      */
     public function update(Request $request, PerangkatRusak_m $perangkatRusak_m)
     {
-        //
+
+        $update = PerangkatRusak_m::where('id', $request->post_id)->firstOrfail();
+
+        if ($request->gambar) {
+            if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                \Storage::delete('public/'.$update->gambar);
+                $file = $request->file('gambar')->store('foto/rusak', 'public');
+                $update->gambar = $file;
+            } else {
+              $file = $request->file('gambar')->store('foto/rusak', 'public');
+              $update->gambar = $file;
+            }
+        }
+
+        $update->sn                = $request->sn;
+        $update->merk              = $request->merkperangkat; //kiri database, kanan nama field
+        $update->cpu               = $request->cpu;
+        $update->ram               = $request->ram;
+        $update->lan_port          = $request->lanport;
+        $update->tahun             = $request->tahun;
+        $update->save();
+        return redirect()->route('perangkat-rusak.index.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
     }
 
     /**
@@ -180,31 +202,32 @@ class PerangkatRusak extends Controller
 
     public function getData($value)
     {
-        if ($value == 'server') {
+
+        if ($value == 'Server') {
 
             $data = Server_m::all();
 
-        } if ($value == 'perangkatjar') {
+        } if ($value == 'Perangkat Jaringan') {
 
             $data = PerangkatJar_m::all();
 
-        } if ($value == 'ap') {
+        } if ($value == 'Access Point') {
 
             $data = AccessPoint_m::all();
 
-        } if ($value == 'nvr') {
+        } if ($value == 'NVR CCTV') {
 
             $data = NvrCctv_m::all();
 
-        } if ($value == 'cctv-pemko') {
+        } if ($value == 'CCTV Pemko') {
 
             $data = CctvPemko_m::all();
 
-        } if ($value == 'cctv-publik') {
+        } if ($value == 'CCTV Publik') {
 
             $data = CctvPublik_m::all();
 
-        } if ($value == 'wifi-publik') {
+        } if ($value == 'Wifi Publik') {
 
             $data = WifiPublik_m::all();
 
