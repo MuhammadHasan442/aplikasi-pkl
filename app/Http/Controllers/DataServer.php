@@ -52,7 +52,7 @@ class DataServer extends Controller
                 Server_m::create([
                     'sn'            => $request->sn,
                     'ip'            => $request->ip,
-                    'merk_server'   => $request->merkserver,
+                    'merk'          => $request->merkserver,
                     'gambar'        => $file,
                     'jenis'         => $request->jenis,
                     'hardisk'       => $request->hardisk,
@@ -131,7 +131,7 @@ class DataServer extends Controller
 
                 $update->sn            = $request->snok;
                 $update->ip            = $request->ip;
-                $update->merk_server   = $request->merkserver;
+                $update->merk   = $request->merkserver;
                 $update->jenis         = $request->jenis;
                 $update->processor     = $request->processor;
                 $update->ram           = $request->ram;

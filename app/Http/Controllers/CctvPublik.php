@@ -55,7 +55,7 @@ class CctvPublik extends Controller
                 CctvPublik_m::create([
                     'sn'            => $request->sn,
                     'ip'            => $request->ip,
-                    'merk_cctv'     => $request->merkcctv,
+                    'merk'          => $request->merkcctv,
                     'gambar'        => $file,
                     'tipe'          => $request->tipe,
                     'letak'         => $request->letak,
@@ -149,7 +149,7 @@ class CctvPublik extends Controller
 
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
-                $update->merk_cctv      = $request->merkcctv;
+                $update->merk      = $request->merkcctv;
                 $update->tipe           = $request->tipe;
                 $update->letak          = $request->letak;
                 $update->tahun          = $request->tahun;

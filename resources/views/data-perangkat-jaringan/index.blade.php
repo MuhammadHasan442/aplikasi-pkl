@@ -27,6 +27,7 @@
                         <th scope="col">No</th>
                         <th scope="col">SN</th>
                         <th scope="col">Merk Perangkat</th>
+                        <th scope="col">Gambar</th>
                         <th scope="col">CPU</th>
                         <th scope="col">RAM</th>
                         <th scope="col">LAN Port</th>
@@ -39,7 +40,8 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $post->sn }}</td>
-                            <td>{{ $post->merk_perangkat }}</td>
+                            <td>{{ $post->merk }}</td>
+                            <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                             <td>{{ $post->cpu }}</td>
                             <td>{{ $post->ram }}</td>
                             <td>{{ $post->lan_port }}</td>
@@ -78,7 +80,7 @@
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
                         $('#sn').val(`${iterator.sn}`)
-                        $('#merkperangkat').val(`${iterator.merk_perangkat}`)
+                        $('#merkperangkat').val(`${iterator.merk}`)
                         $('#cpu').val(`${iterator.cpu}`)
                         $('#ram').val(`${iterator.ram}`)
                         $('#lanport').val(`${iterator.lan_port}`)

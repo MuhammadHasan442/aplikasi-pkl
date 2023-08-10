@@ -16,13 +16,13 @@
                         <label for="kategori">Kategori</label>
                         <select name="kategori" class="form-control" id="kategori">
                             <option disabled selected>- Pilih Data -</option>
-                            <option value="server">Server</option>
-                            <option value="perangkatjar">Perangkat Jaringan</option>
-                            <option value="ap">Access Point</option>
-                            <option value="nvr">NVR CCTV</option>
-                            <option value="cctv-pemko">CCTV Pemko</option>
-                            <option value="cctv-publik">CCTV Publik</option>
-                            <option value="wifi-publik">Wifi Publik</option>
+                            <option value="Server">Server</option>
+                            <option value="Perangkat Jaringan">Perangkat Jaringan</option>
+                            <option value="Access Point">Access Point</option>
+                            <option value="NVR CCTV">NVR CCTV</option>
+                            <option value="CCTV Pemko">CCTV Pemko</option>
+                            <option value="CCTV Publik">CCTV Publik</option>
+                            <option value="Wifi Publik">Wifi Publik</option>
                         </select>
                     </div>
                     <div class="form-group">

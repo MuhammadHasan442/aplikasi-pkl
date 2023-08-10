@@ -48,39 +48,30 @@ class WifiPublik extends Controller
 
         try {
 
-            $cek = WifiPublik_m::where('ip', $request->ip)->first();
+            if ($request->gambar) {
 
-            if ($cek == null) {
-
-                if ($request->gambar) {
-
-                    $file = $request->file('gambar')->store('foto/wifi-publik', 'public');
-
-                } else {
-
-                    $file = 'null';
-
-                }
-
-                WifiPublik_m::create([
-                    'sn'            => $request->sn,
-                    'merk_wifi'     => $request->merkcctv,
-                    'gambar'        => $file,
-                    'ssid'          => $request->ssid,
-                    'letak'         => $request->letak,
-                    'tahun'         => $request->tahun
-                ]);
-
-                return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+                $file = $request->file('gambar')->store('foto/wifi-publik', 'public');
 
             } else {
 
-                throw new Exception("Data IP Sudah Ada");
+                $file = 'null';
 
             }
+
+            WifiPublik_m::create([
+                'sn'            => $request->sn,
+                'merk'          => $request->merk,
+                'gambar'        => $file,
+                'ssid'          => $request->ssid,
+                'letak'         => $request->letak,
+                'tahun'         => $request->tahun
+            ]);
+
+            return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Disimpan!']);
+
         } catch (\Throwable $th) {
 
-            return redirect()->route('data-wifi-publik.index')->with(['warning' => 'IP Sudah Ada!']);
+            return redirect()->route('data-wifi-publik.index')->with(['warning' => 'Pastikan semua field mengikuti tipe data yang benar!']);
 
         }
 
@@ -151,7 +142,7 @@ class WifiPublik extends Controller
         }
 
         $update->sn             = $request->sn;
-        $update->merk_wifi      = $request->merkwifi;
+        $update->merk           = $request->merkwifi;
         $update->ssid           = $request->ssid;
         $update->letak          = $request->letak;
         $update->tahun          = $request->tahun;
@@ -159,18 +150,6 @@ class WifiPublik extends Controller
 
         return redirect()->route('data-wifi-publik.index')->with(['success' => 'Data Berhasil Diupdate!']);
 
-        // try {
-        //     $cek = WifiPublik_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
-        //     if ($cek == null) {
-        //         $update = WifiPublik_m::where('id', $request->post_id)->firstOrfail();
-        //         $update->save();
-        //         return redirect()->route('data-wifi-publik.index')->with(['info' => 'Data Berhasil Diupdate!']);
-        //     } else {
-        //         throw new Exception("Data IP Sudah Ada");
-        //     }
-        // } catch (\Throwable $th) {
-        //     return redirect()->route('data-wifi-publik.index')->with(['warning' => 'IP Sudah Ada!']);
-        // }
     }
 
     public function destroy(WifiPublik_m $WifiPublik_m, Request $request)

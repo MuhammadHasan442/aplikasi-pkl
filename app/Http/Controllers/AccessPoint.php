@@ -56,7 +56,7 @@ class AccessPoint extends Controller
                 AccessPoint_m::create([
                     'sn'           => $request->sn,
                     'ip'           => $request->ip,
-                    'merk_ap'      => $request->merkap,
+                    'merk'      => $request->merkap,
                     'gambar'       => $file,
                     'tipe'         => $request->tipe,
                     'nama_ap'      => $request->namaap,
@@ -151,7 +151,7 @@ class AccessPoint extends Controller
 
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
-                $update->merk_ap        = $request->merkap; //kiri database, kanan nama field
+                $update->merk           = $request->merkap; //kiri database, kanan nama field
                 $update->tipe           = $request->tipe;
                 $update->nama_ap        = $request->namaap;
                 $update->letak          = $request->letak;
