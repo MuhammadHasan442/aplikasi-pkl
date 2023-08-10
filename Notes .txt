@@ -1,0 +1,12 @@
+Notes :
+
+Yang Perlu Ditambah :
+- Menu Cetak di Sidebar
+- Cetak harus di view dulu, jangan langsung download PDF
+-
+
+Opsional :
+- Tampilan Detail pada bagian menu Server
+
+Perlu di Perbaiki :
+- Edit Data di halaman Perangkat Rusak
