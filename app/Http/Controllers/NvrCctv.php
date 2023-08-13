@@ -40,11 +40,11 @@ class NvrCctv extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [ 
+        $this->validate($request, [
             'gambar' => 'required',
             'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
-        ]);           
-        
+        ]);
+
         $file = $request->file('gambar')->store('foto/nvr', 'public');
 
             NvrCctv_m::create([
@@ -57,7 +57,7 @@ class NvrCctv extends Controller
                 'tahun'      => $request->tahun
             ]);
             // dd($request->gambar);
-        
+
             return redirect()->route('data-nvr-cctv.index')->with(['success' => 'Data Berhasil Disimpan!']);
         // } else {
             // return redirect()->route('data-nvr-cctv.index')->with(['warning' => 'Gagal Disimpan!']);
@@ -133,7 +133,7 @@ class NvrCctv extends Controller
         $update->penggunaan     = $request->penggunaan;
         $update->tahun          = $request->tahun;
         $update->save();
-        
+
         return redirect()->route('data-nvr-cctv.index')->with(['success' => 'Data Berhasil Diupdate!']);
 
     }
@@ -158,6 +158,7 @@ class NvrCctv extends Controller
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
     {
         if ($request->tahun == 'semua'){
@@ -169,7 +170,23 @@ class NvrCctv extends Controller
         $pdf = PDF::loadView('data-nvr-cctv.pdf', [
             'data' => $data
         ]);
-        $nama = 'laporan NRV CCTV '.$request->tahun.'.pdf';
+
+        $nama = 'laporan-NRV-CCTV-'.$request->tahun.'.pdf';
         return $pdf->download($nama);
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = NvrCctv_m::all();
+
+        } else {
+
+            $data = NvrCctv_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-nvr-cctv.pdf', compact('data'));
     }
 }

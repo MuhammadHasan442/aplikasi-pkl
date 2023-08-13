@@ -201,10 +201,23 @@ class DataServer extends Controller
             'data' => $data
         ])->setPaper('A4', 'Landscape');
 
-        $nama = 'laporan data Server '.$request->tahun.'.pdf';
+        $nama = 'laporan-data-server-'.$request->tahun.'.pdf';
         return $pdf->download($nama);
 
-        // return view('data-server.pdf',['title' => 'Data Server'], compact('data'));
+    }
 
-}
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = Server_m::all();
+
+        } else {
+
+            $data = Server_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-server.view', compact('data'));
+    }
 }

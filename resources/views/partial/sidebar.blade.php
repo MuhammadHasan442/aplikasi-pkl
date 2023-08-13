@@ -89,6 +89,12 @@
             <span>Data Pengadaan Perangkat</span></a>
     </li>
 
+    <li class="nav-item {{ request()->Is('cetak-data') ? 'active':'' }}">
+        <a class="nav-link" href="cetak-data">
+            <i class="fa fa-print"></i>
+            <span>Cetak Data</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

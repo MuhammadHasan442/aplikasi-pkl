@@ -78,14 +78,14 @@
                 dataType: 'json', // added data type
                 success: function(res) {
                     for (const iterator of res) {
-                        // console.log(iterator.kategori)
                         $('#post_id').val(`${iterator.id}`)
+                        $('#tahun_e').val(`${iterator.tahun}`)
+                        $('#merk_e').val(`${iterator.merk}`)
                         $('#kategori_e').val(`${iterator.kategori}`).prop('selected', true)
                         if ($('#kategori_e').is(":selected")) {
 
                             var kategori = $('#kategori_e').val();
                             var serial = iterator.sn;
-                            // console.log(serial)
 
                             $.ajax({
                                 url: "/getKategori/" + kategori,
@@ -94,7 +94,7 @@
 
                                     var y = ""
 
-                                    // y = '<option disabled selected>- Pilih Data -</option>'
+                                    y = '<option disabled>- Pilih Data -</option>'
 
                                     for (i in data) {
                                         if (data[i]['sn'] == serial) {
@@ -104,29 +104,48 @@
                                         }
                                     }
 
-                                    $('#sn_e').html(y).prop('selected', true)  //blm selesai
+                                    $('#sn_e').html(y).prop('selected', true)
 
-                                    if (($('#sn_e').is(":selected"))) {
+                                    $('#sn_e').change(function() {
                                         var merk = $(this).children(':selected').data('merke')
                                         var tahun = $(this).children(':selected').data('tahune')
-                                        // $('#merk_e').val(merk)
-                                        // $('#tahun_e').val(tahun)
-                                        console.log(merk, tahun)
-                                    }
-
-                                    // $('#sn_e').change(function() {
-                                    //     var merk = $(this).children(':selected').data('merk-e')
-                                    //     var tahun = $(this).children(':selected').data('tahun-e')
-                                    //     $('#merk_e').val(merk)
-                                    //     $('#tahun_e').val(tahun)
-                                    // })
+                                        $('#merk_e').val(merk)
+                                        $('#tahun_e').val(tahun)
+                                    })
                                 }
                             });
 
                         }
-                        // $('#sn_e').val(`${iterator.sn}`)
-                        // $('#merk_e').val(`${iterator.merk}`)
-                        // $('#tahun_e').val(`${iterator.tahun}`)
+
+                        $("#kategori_e").on("change", function() {
+
+                            var kategori = $('#kategori_e').val();
+
+                            $.ajax({
+                                url: "/getKategori/" + kategori,
+                                type: "GET",
+                                success: function(data) {
+
+                                    var y = ""
+
+                                    y = '<option disabled selected>- Pilih Data -</option>'
+
+                                    for (i in data) {
+                                        y += '<option value="'+ data[i]['sn'] +'" data-merke="'+ data[i]['merk'] +'" data-tahune="'+ data[i]['tahun'] +'" selected>'+ data[i]['sn'] +'</option>'
+                                    }
+
+                                    $('#sn_e').html(y)
+
+                                    $('#sn_e').change(function() {
+                                        var merk = $(this).children(':selected').data('merke')
+                                        var tahun = $(this).children(':selected').data('tahune')
+                                        $('#merk_e').val(merk)
+                                        $('#tahun_e').val(tahun)
+                                    })
+                                }
+                            });
+                        });
+
                         $('#status_e').val(`${iterator.status}`)
                         $('#keterangan_e').val(`${iterator.keterangan}`)
                     }

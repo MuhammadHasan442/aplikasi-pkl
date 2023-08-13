@@ -160,7 +160,7 @@ class PerangkatJar extends Controller
 
         PerangkatJar_m::where('id', $request->id)->delete();
         return redirect()->route('data-perangkat-jaringan.index')->with(['success' => 'Data Berhasil Dihapus!']);
-    
+
     }
 
     public function getAPI($id)
@@ -171,18 +171,37 @@ class PerangkatJar extends Controller
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
-{
-    if ($request->tahun == 'semua'){
-        $data = PerangkatJar_m::all();
-    } else {
-        $data = PerangkatJar_m::where('tahun', $request->tahun)->get();
+    {
+
+        if ($request->tahun == 'semua'){
+            $data = PerangkatJar_m::all();
+        } else {
+            $data = PerangkatJar_m::where('tahun', $request->tahun)->get();
+        }
+
+        $pdf = PDF::loadView('data-perangkat-jaringan.pdf', [
+            'data' => $data
+        ]);
+
+        $nama = 'laporan-perangkat-jaringan-'.$request->tahun.'.pdf';
+        return $pdf->download($nama);
+
     }
 
-    $pdf = PDF::loadView('data-perangkat-jaringan.pdf', [
-        'data' => $data
-    ]);
-    $nama = 'laporan perangkat jaringan '.$request->tahun.'.pdf';
-    return $pdf->download($nama);
-}
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = PerangkatJar_m::all();
+
+        } else {
+
+            $data = PerangkatJar_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-perangkat-jaringan.pdf', compact('data'));
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CctvPublik_m;
 use Illuminate\Http\Request;
+use PDF;
 
 class CctvPublik extends Controller
 {
@@ -133,7 +134,7 @@ class CctvPublik extends Controller
         try {
 
             $cek = CctvPublik_m::where('ip', $request->ip)->where('id', '!=', $request->post_id)->first();
-            
+
             if ($cek == null) {
 
                 if ($request->gambar) {
@@ -184,15 +185,19 @@ class CctvPublik extends Controller
         return redirect()->route('data-cctv-publik.index')->with(['success' => 'Data Berhasil Dihapus!']);
 
     }
+
     public function getAPI($id)
     {
+
         $server = CctvPublik_m::where('id', $id)->get();
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
     {
+
         if ($request->tahun == 'semua'){
             $data = CctvPublik_m::all();
         } else {
@@ -202,7 +207,23 @@ class CctvPublik extends Controller
         $pdf = PDF::loadView('data-cctv-publik.pdf', [
             'data' => $data
         ]);
-        $nama = 'laporan cctv publik - '.$request->tahun.'.pdf';
+
+        $nama = 'laporan-cctv-publik-'.$request->tahun.'.pdf';
         return $pdf->download($nama);
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = CctvPublik_m::all();
+
+        } else {
+
+            $data = CctvPublik_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-cctv-pemko.pdf', compact('data'));
     }
 }

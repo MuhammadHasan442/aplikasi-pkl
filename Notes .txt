@@ -9,4 +9,4 @@ Opsional :
 - Tampilan Detail pada bagian menu Server
 
 Perlu di Perbaiki :
-- Edit Data di halaman Perangkat Rusak
+- Edit Data di halaman Perangkat Rusak (done)

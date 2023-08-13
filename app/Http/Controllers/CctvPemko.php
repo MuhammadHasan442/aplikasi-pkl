@@ -40,15 +40,15 @@ class CctvPemko extends Controller
      */
      public function store(Request $request)
      {
-        $this->validate($request, [ 
+        $this->validate($request, [
             'gambar' => 'required',
             'gambar.*' => 'mimes:jpg,jpeg,png|max:2048'
-        ]);      
+        ]);
 
         try {
             $cek = CctvPemko_m::where('ip', $request->ip)->first();
             if ($cek == null) {
-                
+
                 $file = $request->file('gambar')->store('foto/cctv-pemko', 'public');
 
                 CctvPemko_m::create([
@@ -135,7 +135,7 @@ class CctvPemko extends Controller
                       $update->gambar = $file;
                     }
                 }
-                
+
                 $update->sn             = $request->sn;
                 $update->ip             = $request->ip;
                 $update->merk           = $request->merkcctv;
@@ -165,6 +165,7 @@ class CctvPemko extends Controller
         return redirect()->route('data-cctv-pemko.index')->with(['success' => 'Data Berhasil Dihapus!']);
 
     }
+
     public function getAPI($id)
     {
         $server = CctvPemko_m::where('id', $id)->get();
@@ -172,20 +173,39 @@ class CctvPemko extends Controller
         return response()->json($server, 200, ['pesan' => 'success'] );
 
     }
+
     public function getPDF(Request $request)
-{
-    if ($request->tahun == 'semua'){
-        $data = CctvPemko_m::all();
-    } else {
-        $data = CctvPemko_m::where('tahun', $request->tahun)->get();
+    {
+
+        if ($request->tahun == 'semua'){
+            $data = CctvPemko_m::all();
+        } else {
+            $data = CctvPemko_m::where('tahun', $request->tahun)->get();
+        }
+
+        $pdf = PDF::loadView('data-cctv-pemko.pdf', [
+            'data' => $data
+        ]);
+
+        $nama = 'laporan-cctv-pemko-'.$request->tahun.'.pdf';
+        return $pdf->download($nama);
+
     }
 
-    $pdf = PDF::loadView('data-cctv-pemko.pdf', [
-        'data' => $data
-    ]);
-    $nama = 'laporan pemko '.$request->tahun.'.pdf';
-    return $pdf->download($nama);
-}
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = CctvPemko_m::all();
+
+        } else {
+
+            $data = CctvPemko_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-cctv-pemko.pdf', compact('data'));
+    }
 }
 
 

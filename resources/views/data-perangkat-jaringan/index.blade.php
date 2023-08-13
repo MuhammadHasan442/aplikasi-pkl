@@ -14,9 +14,9 @@
             </a>
             <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#cetakModal">
                 <span class="icon text-white-50">
-                    <i class="fas fa-file-pdf"></i>
+                    <i class="fa fa-eye"></i>
                 </span>
-                <span class="text">Cetak Data</span>
+                <span class="text">Preview Cetak</span>
             </a>
             <div class="table-responsive">
             <br>
@@ -27,7 +27,7 @@
                         <th scope="col">No</th>
                         <th scope="col">SN</th>
                         <th scope="col">Merk Perangkat</th>
-                        <th scope="col">Gambar</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">CPU</th>
                         <th scope="col">RAM</th>
                         <th scope="col">LAN Port</th>

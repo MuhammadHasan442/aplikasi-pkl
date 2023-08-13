@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Laporan NVR CCTV</title>
+    <title>Laporan Data Server</title>
 </head>
 <body>
     <center>
@@ -27,18 +27,22 @@
         </table>
     </center>
     <hr align="right" style="height:5px;border:none;color:#333;background-color:#333;">
-    <h5 class="text text-center">LAPORAN DATA NVR CCTV</h5>
+    <h5 class="text text-center">LAPORAN DATA SERVER</h5>
     <div id="content">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th>No</th>
                 <th>SN</th>
-                <th>Merk NVR</th>
-                <th>Video Channel</th>
+                <th>IP Address</th>
+                <th>Merk Server</th>
+                <th>Jenis</th>
                 <th>Hardisk</th>
-                <th>Penggunaan</th>
+                <th>RAM</th>
+                <th>Processor</th>
+                <th>OS</th>
                 <th>Tahun</th>
+                <th>Penggunaan</th>
                 <th>Foto</th>
             </tr>
             </thead>
@@ -47,23 +51,27 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $post->sn }}</td>
+                        <td>{{ $post->ip }}</td>
                         <td>{{ $post->merk }}</td>
-                        <td>{{ $post->video_ch }}</td>
+                        <td>{{ $post->jenis }}</td>
                         <td>{{ $post->hardisk }}</td>
-                        <td>{{ $post->penggunaan }}</td>
+                        <td>{{ $post->ram }}</td>
+                        <td>{{ $post->processor }}</td>
+                        <td>{{ $post->os }}</td>
                         <td>{{ $post->tahun }}</td>
+                        <td>{{ $post->penggunaan }}</td>
                         <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text text-center">
+                        <td colspan="12" class="text text-center">
                             <b>Data Tidak Tersedia</b>
                         </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
-        <table width="100%" >
+        <table width="100%">
             <tbody>
                 <tr>
                     <td width="70%"></td>

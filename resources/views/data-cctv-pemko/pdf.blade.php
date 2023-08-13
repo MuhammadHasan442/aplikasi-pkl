@@ -8,57 +8,73 @@
     <title>Laporan</title>
 </head>
 <body>
-<center>
-    <table>
-        <tr>
-            <td>
-                <img src="{{ asset('img/LOGO_KOTA_BANJARMASIN_PNG.png') }}" style="width: 100px; height: auto;">
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <center>
-                    <h5 class="text text-center">PEMERINTAH KOTA BANJARMASIN</h5>
-                    <h5 class="text text-center">DINAS KOMUNIKASI, INFORMATIKA DAN STATISTIK</h5>
-                    <p class="text text-center" style="font-size: 13px">Jalan R. E. Martadinata No.1 Kode Pos 70111 Gedung Blok B Lt. Dasar - Banjarmasin 
-                    <br> Email : diskominfotik@mail.banjarmasinkota.go.id Website : diskominfotik.banjarmasinkota.go.id </p> 
-                </center>
-            </td>
-        </tr>
-    </table>
-</center>
+    <center>
+        <table>
+            <tr>
+                <td>
+                    <img src="{{ asset('img/LOGO_KOTA_BANJARMASIN_PNG.png') }}" style="width: 100px; height: auto;">
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <center>
+                        <h5 class="text text-center">PEMERINTAH KOTA BANJARMASIN</h5>
+                        <h5 class="text text-center">DINAS KOMUNIKASI, INFORMATIKA DAN STATISTIK</h5>
+                        <p class="text text-center" style="font-size: 13px">Jalan R. E. Martadinata No.1 Kode Pos 70111 Gedung Blok B Lt. Dasar - Banjarmasin
+                        <br> Email : diskominfotik@mail.banjarmasinkota.go.id Website : diskominfotik.banjarmasinkota.go.id </p>
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </center>
     <hr align="right" style="height:5px;border:none;color:#333;background-color:#333;">
     <h5 class="text text-center">LAPORAN DATA CCTV PEMKO</h5>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>No</th>
-            <th>SN</th>
-            <th>IP Address</th>
-            <th>Merk CCTV</th>
-            <th>Tipe</th>
-            <th>Letak</th>
-            <th>Tahun</th>
-        </tr>
-        </thead>
-        <tbody>
-        @forelse ($data as $key => $post)
+    <div id="content">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>SN</th>
+                <th>IP Address</th>
+                <th>Merk CCTV</th>
+                <th>Tipe</th>
+                <th>Letak</th>
+                <th>Tahun</th>
+                <th>Foto</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($data as $key => $post)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $post->sn }}</td>
+                        <td>{{ $post->ip }}</td>
+                        <td>{{ $post->merk }}</td>
+                        <td>{{ $post->tipe }}</td>
+                        <td>{{ $post->letak }}</td>
+                        <td>{{ $post->tahun }}</td>
+                        <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text text-center">
+                            Data Tidak Tersedia
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <table width="100%">
+            <tbody>
                 <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $post->sn }}</td>
-                    <td>{{ $post->ip }}</td>
-                    <td>{{ $post->merk_cctv }}</td>
-                    <td>{{ $post->tipe }}</td>
-                    <td>{{ $post->letak }}</td>
-                    <td>{{ $post->tahun }}</td>
+                    <td width="70%"></td>
+                    <td width="30%" align="center" style="border: none;">Banjarmasin, <?= date('d-m-Y'); ?> <br>MENGETAHUI,<br><br><br><br><br></td>
                 </tr>
-            @empty
                 <tr>
-                    <td colspan="7" class="text text-center">
-                        Data Tidak Tersedia
-                    </td>
+                    <td width="70%"></td>
+                    <td width="30%" align="center" style="border: none;"><b><u>H.A. AGUNG SAPTOTO, M.Kom</u></b><br>NIP. 19750831 201001 1 005</td>
                 </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

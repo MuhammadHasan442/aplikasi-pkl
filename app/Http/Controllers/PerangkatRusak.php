@@ -160,14 +160,14 @@ class PerangkatRusak extends Controller
             }
         }
 
-        $update->sn                = $request->sn;
-        $update->merk              = $request->merkperangkat; //kiri database, kanan nama field
-        $update->cpu               = $request->cpu;
-        $update->ram               = $request->ram;
-        $update->lan_port          = $request->lanport;
-        $update->tahun             = $request->tahun;
+        $update->kategori        = $request->kategori;
+        $update->sn              = $request->sn;
+        $update->merk            = $request->merk;
+        $update->tahun           = $request->tahun;
+        $update->status          = $request->status;
+        $update->keterangan      = $request->keterangan;
         $update->save();
-        return redirect()->route('perangkat-rusak.index.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        return redirect()->route('perangkat-rusak.index')->with(['success' => 'Data Berhasil Diupdate!']);
 
     }
 
@@ -187,7 +187,7 @@ class PerangkatRusak extends Controller
 
         PerangkatRusak_m::where('id', $request->id)->delete();
 
-        return redirect()->route('pengadaan-perangkat.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('perangkat-rusak.index')->with(['success' => 'Data Berhasil Dihapus!']);
 
     }
 
