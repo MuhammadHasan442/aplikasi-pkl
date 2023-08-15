@@ -39,7 +39,13 @@
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" class="form-control" name="status" id="status" aria-describedby="status">
+                        <select name="status" class="form-control" id="status">
+                            <option disabled selected>- Pilih Data -</option>
+                            <option value="Hidup">Hidup</option>
+                            <option value="Mati Total">Mati Total</option>
+                            <option value="Rusak">Rusak</option>
+                            <option value="Tanpa Status">Tanpa Status</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label>

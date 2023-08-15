@@ -11,6 +11,7 @@ use App\Models\PerangkatJar_m;
 use App\Models\Server_m;
 use App\Models\WifiPublik_m;
 use Illuminate\Http\Request;
+use PDF;
 
 class PerangkatRusak extends Controller
 {
@@ -64,36 +65,6 @@ class PerangkatRusak extends Controller
                 $file = 'null';
 
             }
-
-            // if ($request->kategori == 'server') {
-
-            //     $kategori = 'Server';
-
-            // } if ($request->kategori == 'perangkatjar') {
-
-            //     $kategori = 'Perangkat Jaringan';
-
-            // } if ($request->kategori == 'ap') {
-
-            //     $kategori = 'Access Point';
-
-            // } if ($request->kategori == 'nvr') {
-
-            //     $kategori = 'NVR CCTV';
-
-            // } if ($request->kategori == 'cctv-pemko') {
-
-            //     $kategori = 'CCTV Pemko';
-
-            // } if ($request->kategori == 'cctv-publik') {
-
-            //     $kategori = 'CCTV Publik';
-
-            // } if ($request->kategori == 'wifi-publik') {
-
-            //     $kategori = 'Wifi Publik';
-
-            // }
 
             PerangkatRusak_m::create([
                 'gambar'       => $file,
@@ -235,5 +206,38 @@ class PerangkatRusak extends Controller
 
         return response()->json($data, 200, ['pesan' => 'success'] );
 
+    }
+
+    public function getPDF(Request $request)
+    {
+
+        if ($request->status == 'semua'){
+            $data = PerangkatRusak_m::all();
+        } else {
+            $data = PerangkatRusak_m::where('status', $request->status)->get();
+        }
+
+        $pdf = PDF::loadView('perangkat-rusak.pdf', [
+            'data' => $data
+        ]);
+
+        $nama = 'laporan-perangkat-rusak-'.$request->status.'.pdf';
+        return $pdf->download($nama);
+
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->status == 'semua'){
+
+            $data = PerangkatRusak_m::all();
+
+        } else {
+
+            $data = PerangkatRusak_m::where('status', $request->status)->get();
+        }
+
+        return view('perangkat-rusak.pdf', compact('data'));
     }
 }

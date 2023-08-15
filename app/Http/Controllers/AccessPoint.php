@@ -195,6 +195,7 @@ class AccessPoint extends Controller
 
     public function getPDF(Request $request)
     {
+
         if ($request->tahun == 'semua'){
             $data = AccessPoint_m::all();
         } else {
@@ -204,7 +205,23 @@ class AccessPoint extends Controller
         $pdf = PDF::loadView('data-access-point.pdf', [
             'data' => $data
         ]);
+
         $nama = 'laporan AP '.$request->tahun.'.pdf';
         return $pdf->download($nama);
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = AccessPoint_m::all();
+
+        } else {
+
+            $data = AccessPoint_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-access-point.pdf', compact('data'));
     }
 }

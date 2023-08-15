@@ -14,9 +14,9 @@
             </a>
             <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#cetakModal">
                 <span class="icon text-white-50">
-                    <i class="fas fa-file-pdf"></i>
+                    <i class="fa fa-eye"></i>
                 </span>
-                <span class="text">Cetak Data</span>
+                <span class="text">Preview Cetak</span>
             </a>
             <div class="table-responsive">
                 <br>

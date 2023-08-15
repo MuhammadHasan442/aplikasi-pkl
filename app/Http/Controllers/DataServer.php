@@ -131,7 +131,7 @@ class DataServer extends Controller
 
                 $update->sn            = $request->snok;
                 $update->ip            = $request->ip;
-                $update->merk   = $request->merkserver;
+                $update->merk          = $request->merkserver;
                 $update->jenis         = $request->jenis;
                 $update->processor     = $request->processor;
                 $update->ram           = $request->ram;

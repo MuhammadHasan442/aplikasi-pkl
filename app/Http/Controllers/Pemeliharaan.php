@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemeliharaan_m;
 use Illuminate\Http\Request;
+use PDF;
 
 class Pemeliharaan extends Controller
 {
@@ -171,5 +172,65 @@ class Pemeliharaan extends Controller
 
         return response()->json($server, 200, ['pesan' => 'success'] );
 
+    }
+
+    public function getPDF(Request $request)
+    {
+
+        $harga1 = $request->minharga;
+        $harga2 = $request->maxharga;
+
+        if ($harga2 == 0){
+
+            $data = Pemeliharaan_m::where('harga', '>=', $harga1)->get();
+
+        } else if ($harga1 == 0) {
+
+            $data = Pemeliharaan_m::where('harga', '<=', $harga2)->get();
+
+        } else if ($harga1 && $harga2 !== 0) {
+
+            $data = Pemeliharaan_m::whereBetween('harga', [$harga1, $harga2])->get();
+
+        } else {
+
+            $data = Pemeliharaan_m::all();
+
+        }
+
+        $pdf = PDF::loadView('pemeliharaan-perangkat.pdf', [
+            'data' => $data
+        ])->setPaper('A4', 'Landscape');
+
+        $nama = 'laporan-pemeliharaan-perangkat-dari-Rp.'.$harga1.'.pdf';
+        return $pdf->download($nama);
+
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        $harga1 = $request->minharga;
+        $harga2 = $request->maxharga;
+
+        if ($harga2 == 0){
+
+            $data = Pemeliharaan_m::where('harga', '>=', $harga1)->get();
+
+        } else if ($harga1 == 0) {
+
+            $data = Pemeliharaan_m::where('harga', '<=', $harga2)->get();
+
+        } else if ($harga1 && $harga2 !== 0) {
+
+            $data = Pemeliharaan_m::whereBetween('harga', [$harga1, $harga2])->get();
+
+        } else {
+
+            $data = Pemeliharaan_m::all();
+
+        }
+
+        return view('pemeliharaan-perangkat.view', compact('data'));
     }
 }

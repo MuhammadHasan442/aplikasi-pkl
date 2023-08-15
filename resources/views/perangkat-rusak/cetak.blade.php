@@ -9,19 +9,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                 <form action="{{ route('pdfWifi') }}" method="POST">
+                 <form action="{{ route('prevRusak') }}" method="POST" target="_blank">
                     @csrf
                     <!-- <input type="hidden" name="sn" id="sn"> -->
                     <div class="form-group">
-                        <select name="tahun" class="form-control" id="tahun">
+                        <label for="status">Status</label>
+                        <select name="status" class="form-control" id="status">
                             <option disabled selected>- Pilih Data -</option>
                             <option value="semua">Semua Data</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
+                            <option value="Hidup">Hidup</option>
+                            <option value="Mati Total">Mati Total</option>
+                            <option value="Rusak">Rusak</option>
+                            <option value="Tanpa Status">Tanpa Status</option>
                         </select>
                     </div>
             </div>

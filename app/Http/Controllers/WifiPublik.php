@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WifiPublik_m;
 use Illuminate\Http\Request;
+use PDF;
 
 class WifiPublik extends Controller
 {
@@ -60,7 +61,7 @@ class WifiPublik extends Controller
 
             WifiPublik_m::create([
                 'sn'            => $request->sn,
-                'merk'          => $request->merk,
+                'merk'          => $request->merkwifi,
                 'gambar'        => $file,
                 'ssid'          => $request->ssid,
                 'letak'         => $request->letak,
@@ -188,7 +189,22 @@ class WifiPublik extends Controller
             'data' => $data
         ]);
 
-        $nama = 'laporan wifi publik - '.$request->tahun.'.pdf';
+        $nama = 'laporan-wifi-publik-'.$request->tahun.'.pdf';
         return $pdf->download($nama);
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        if ($request->tahun == 'semua'){
+
+            $data = WifiPublik_m::all();
+
+        } else {
+
+            $data = WifiPublik_m::where('tahun', $request->tahun)->get();
+        }
+
+        return view('data-wifi-publik.pdf', compact('data'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengadaan_m;
 use Illuminate\Http\Request;
+use PDF;
 
 class Pengadaan extends Controller
 {
@@ -165,17 +166,59 @@ class Pengadaan extends Controller
     public function getPDF(Request $request)
     {
 
-        if ($request->tahun == 'semua'){
-            $data = Pengadaan_m::all();
+        $harga1 = $request->minharga;
+        $harga2 = $request->maxharga;
+
+        if ($harga2 == 0){
+
+            $data = Pengadaan_m::where('harga', '>=', $harga1)->get();
+
+        } else if ($harga1 == 0) {
+
+            $data = Pengadaan_m::where('harga', '<=', $harga2)->get();
+
+        } else if ($harga1 && $harga2 !== 0) {
+
+            $data = Pengadaan_m::whereBetween('harga', [$harga1, $harga2])->get();
+
         } else {
-            $data = Pengadaan_m::where('tahun', $request->tahun)->get();
+
+            $data = Pengadaan_m::all();
+
         }
 
         $pdf = PDF::loadView('pengadaan-perangkat.pdf', [
             'data' => $data
         ]);
 
-        $nama = 'laporan wifi publik - '.$request->tahun.'.pdf';
+        $nama = 'laporan-pengadaan-dari-Rp.'.$request->tahun.'.pdf';
         return $pdf->download($nama);
+    }
+
+    public function viewPrint(Request $request)
+    {
+
+        $harga1 = $request->minharga;
+        $harga2 = $request->maxharga;
+
+        if ($harga2 == 0){
+
+            $data = Pengadaan_m::where('harga', '>=', $harga1)->get();
+
+        } else if ($harga1 == 0) {
+
+            $data = Pengadaan_m::where('harga', '<=', $harga2)->get();
+
+        } else if ($harga1 && $harga2 !== 0) {
+
+            $data = Pengadaan_m::whereBetween('harga', [$harga1, $harga2])->get();
+
+        } else {
+
+            $data = Pengadaan_m::all();
+
+        }
+
+        return view('pengadaan-perangkat.pdf', compact('data'));
     }
 }

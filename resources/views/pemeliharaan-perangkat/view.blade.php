@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Laporan Access Point</title>
+    <title>Laporan Pemeliharaan Barang</title>
 </head>
 <body>
     <center>
@@ -27,19 +27,19 @@
         </table>
     </center>
     <hr align="right" style="height:5px;border:none;color:#333;background-color:#333;">
-    <h5 class="text text-center">LAPORAN DATA ACCESS POINT</h5>
+    <h5 class="text text-center">LAPORAN PEMELIHARAAN BARANG</h5>
     <div id="content">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th>No</th>
-                <th>SN</th>
-                <th>IP Address</th>
-                <th>Merk AP</th>
-                <th>Tipe</th>
-                <th>Nama AP</th>
-                <th>Letak</th>
-                <th>Tahun</th>
+                <th>Nama Barang</th>
+                <th>Unit</th>
+                <th>Satuan</th>
+                <th>Harga (Rp)</th>
+                <th>Total Harga</th>
+                <th>Harga Ekatalog/item (Rp)</th>
+                <th>Harga Nego/item (Rp)</th>
                 <th>Foto</th>
             </tr>
             </thead>
@@ -47,13 +47,13 @@
             @forelse ($data as $key => $post)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $post->sn }}</td>
-                        <td>{{ $post->ip }}</td>
-                        <td>{{ $post->merk }}</td>
-                        <td>{{ $post->tipe }}</td>
-                        <td>{{ $post->nama_ap }}</td>
-                        <td>{{ $post->letak }}</td>
-                        <td>{{ $post->tahun }}</td>
+                        <td>{{ $post->nama_barang }}</td>
+                        <td>{{ $post->unit }}</td>
+                        <td>{{ $post->satuan }}</td>
+                        <td>{{ $post->harga }}</td>
+                        <td>{{ $post->total_harga }}</td>
+                        <td>{{ $post->ekatalog }}</td>
+                        <td>{{ $post->nego }}</td>
                         <td><img src="{{ $post->gambar == 'null' ? asset('/img/default.jpg') : asset('storage/'.$post->gambar) }}" class="img-thumbnail" style="width:200px" /></td>
                     </tr>
                 @empty
@@ -68,12 +68,12 @@
         <table width="100%">
             <tbody>
                 <tr>
-                    <td width="60%"></td>
+                    <td width="70%"></td>
                     <td width="30%" align="center" style="border: none;">Banjarmasin, <?= date('d-m-Y'); ?> <br>MENGETAHUI,<br><br><br><br><br></td>
                 </tr>
                 <tr>
-                    <td width="60%"></td>
-                    <td width="40%" align="center" style="border: none;"><b><u>H.A. AGUNG SAPTOTO, M.Kom</u></b><br>NIP. 19750831 201001 1 005</td>
+                    <td width="70%"></td>
+                    <td width="30%" align="center" style="border: none;"><b><u>H.A. AGUNG SAPTOTO, M.Kom</u></b><br>NIP. 19750831 201001 1 005</td>
                 </tr>
             </tbody>
         </table>
