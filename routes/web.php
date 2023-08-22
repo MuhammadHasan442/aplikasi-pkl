@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\CetakData;
 use App\Http\Controllers\DataServer;
 use App\Http\Controllers\MerkBarang;
 use App\Http\Controllers\PerangkatJar;
@@ -34,9 +35,9 @@ Route::get('logout', [Login::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard', ['title' => 'Dashboard']);
-    // });
+    Route::get('/cetakdata', function () {
+        return view('cetakdata', ['title' => 'Cetak Data PDF']);
+    });
 
     Route::get('dashboard', [Dashboard::class, 'index']);
 

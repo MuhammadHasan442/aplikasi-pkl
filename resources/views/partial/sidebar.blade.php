@@ -89,8 +89,8 @@
             <span>Data Pengadaan Perangkat</span></a>
     </li>
 
-    <li class="nav-item {{ request()->Is('cetak-data') ? 'active':'' }}">
-        <a class="nav-link" href="cetak-data">
+    <li class="nav-item {{ request()->Is('cetakdata') ? 'active':'' }}">
+        <a class="nav-link" href="cetakdata">
             <i class="fa fa-print"></i>
             <span>Cetak Data</span></a>
     </li>
