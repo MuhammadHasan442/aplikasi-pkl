@@ -1,32 +1,28 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               8.0.30 - MySQL Community Server - GPL
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
+-- Versi server:                 5.7.33 - MySQL Community Server (GPL)
+-- OS Server:                    Win64
+-- HeidiSQL Versi:               11.2.0.6213
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for data_perangkat
-DROP DATABASE IF EXISTS `data_perangkat`;
-CREATE DATABASE IF NOT EXISTS `data_perangkat` /*!40100 DEFAULT CHARACTER SET latin1 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+-- Membuang struktur basisdata untuk data_perangkat
+CREATE DATABASE IF NOT EXISTS `data_perangkat` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `data_perangkat`;
 
--- Dumping structure for table data_perangkat.access_point
-DROP TABLE IF EXISTS `access_point`;
+-- membuang struktur untuk table data_perangkat.access_point
 CREATE TABLE IF NOT EXISTS `access_point` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `merk` varchar(200) NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `tipe` varchar(200) NOT NULL,
   `nama_ap` varchar(100) NOT NULL,
@@ -36,20 +32,20 @@ CREATE TABLE IF NOT EXISTS `access_point` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.access_point: ~1 rows (approximately)
-DELETE FROM `access_point`;
+-- Membuang data untuk tabel data_perangkat.access_point: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `access_point` DISABLE KEYS */;
 INSERT INTO `access_point` (`id`, `sn`, `ip`, `merk`, `gambar`, `tipe`, `nama_ap`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
-	(1, 'wer', '1.1.1', 'easf', 'foto/ap/GkMPXWGO47L5bohc5eMe4dlV70V0Tv1kSnIBzSiC.png', 'ert', 'ret', 'ert', '345', '2023-07-26 21:39:21', '2023-07-26 21:39:21');
+	(1, 'wer', '1.1.1', 'easf', 'foto/ap/GkMPXWGO47L5bohc5eMe4dlV70V0Tv1kSnIBzSiC.png', 'ert', 'ret', 'ert', '345', '2023-07-27 05:39:21', '2023-07-27 05:39:21');
+/*!40000 ALTER TABLE `access_point` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.cctv_pemko
-DROP TABLE IF EXISTS `cctv_pemko`;
+-- membuang struktur untuk table data_perangkat.cctv_pemko
 CREATE TABLE IF NOT EXISTS `cctv_pemko` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `merk` varchar(200) NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `tipe` varchar(200) NOT NULL,
   `letak` varchar(100) NOT NULL,
@@ -58,20 +54,20 @@ CREATE TABLE IF NOT EXISTS `cctv_pemko` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.cctv_pemko: ~0 rows (approximately)
-DELETE FROM `cctv_pemko`;
+-- Membuang data untuk tabel data_perangkat.cctv_pemko: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `cctv_pemko` DISABLE KEYS */;
 INSERT INTO `cctv_pemko` (`id`, `sn`, `ip`, `merk`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
-	(5, '11111', '1.1.1.1', 'Hikvision', 'foto/cctv-pemko/DuUfIprsOC4vE6cth9OXUKpXfk4LeafQOJeW1h2S.png', '10G', 'Gedung B', '2022', '2023-07-20 04:26:29', '2023-07-18 00:11:08');
+	(5, '11111', '1.1.1.1', 'Hikvision', 'foto/cctv-pemko/DuUfIprsOC4vE6cth9OXUKpXfk4LeafQOJeW1h2S.png', '10G', 'Gedung B', '2022', '2023-07-20 12:26:29', '2023-07-18 08:11:08');
+/*!40000 ALTER TABLE `cctv_pemko` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.cctv_publik
-DROP TABLE IF EXISTS `cctv_publik`;
+-- membuang struktur untuk table data_perangkat.cctv_publik
 CREATE TABLE IF NOT EXISTS `cctv_publik` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(255) NOT NULL,
   `ip` varchar(255) NOT NULL,
-  `merk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `merk` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `tipe` varchar(255) NOT NULL,
   `letak` varchar(255) NOT NULL,
@@ -82,19 +78,19 @@ CREATE TABLE IF NOT EXISTS `cctv_publik` (
   KEY `sn` (`sn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Table data CCTV Publik';
 
--- Dumping data for table data_perangkat.cctv_publik: ~2 rows (approximately)
-DELETE FROM `cctv_publik`;
+-- Membuang data untuk tabel data_perangkat.cctv_publik: ~2 rows (lebih kurang)
+/*!40000 ALTER TABLE `cctv_publik` DISABLE KEYS */;
 INSERT INTO `cctv_publik` (`id`, `sn`, `ip`, `merk`, `gambar`, `tipe`, `letak`, `tahun`, `updated_at`, `created_at`) VALUES
-	(3, '9453', '10.10.10.7', 'Dahua', '', 'outdor', 'taman', '2017', '2023-07-12 04:08:36', '2023-07-12 04:08:36'),
-	(4, '4654165', '103.178.83.250', 'Dahua', 'foto/cctv-publik/BcEpeGy2VjVQsNQ0jf5KkoXoPM2wH2RQisqUSZiI.jpg', 'outdor', 'siring', '2020', '2023-07-20 07:49:21', '2023-07-12 07:01:31');
+	(3, '9453', '10.10.10.7', 'Dahua', '', 'outdor', 'taman', '2017', '2023-07-12 12:08:36', '2023-07-12 12:08:36'),
+	(4, '4654165', '103.178.83.250', 'Dahua', 'foto/cctv-publik/BcEpeGy2VjVQsNQ0jf5KkoXoPM2wH2RQisqUSZiI.jpg', 'outdor', 'siring', '2020', '2023-07-20 15:49:21', '2023-07-12 15:01:31');
+/*!40000 ALTER TABLE `cctv_publik` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.data_server
-DROP TABLE IF EXISTS `data_server`;
+-- membuang struktur untuk table data_perangkat.data_server
 CREATE TABLE IF NOT EXISTS `data_server` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
   `ip` varchar(50) NOT NULL,
-  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `merk` varchar(200) DEFAULT NULL,
   `gambar` varchar(200) DEFAULT NULL,
   `jenis` varchar(200) DEFAULT NULL,
   `hardisk` varchar(100) DEFAULT NULL,
@@ -107,36 +103,36 @@ CREATE TABLE IF NOT EXISTS `data_server` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.data_server: ~3 rows (approximately)
-DELETE FROM `data_server`;
+-- Membuang data untuk tabel data_perangkat.data_server: ~3 rows (lebih kurang)
+/*!40000 ALTER TABLE `data_server` DISABLE KEYS */;
 INSERT INTO `data_server` (`id`, `sn`, `ip`, `merk`, `gambar`, `jenis`, `hardisk`, `ram`, `processor`, `os`, `tahun`, `penggunaan`, `updated_at`, `created_at`) VALUES
-	(7, 'SGH354VFC8', '103.178.83.87', 'Dell', 'foto/server/AvKDAbVsaWMuhb6aMLczf2x4N4gHboQIGDPci4Ah.png', 'Rak', '1000', '16 GB', '20 CORE ProLiant DL160 Gen10', 'Windows server 2008', '2017', 'proxmox, JDIH Pusat, Pentest Aplikasi', '2023-07-26 21:51:32', '2023-02-16 17:02:44'),
-	(8, 'SGH739T6MA', '103.178.83.249', 'HP', 'null', 'Rak', '320', '16 GB', '12 CORE ProLiant DL380P Gen8', 'Debian 6 non GUI', '2017', 'Naga Bungas, Epuskesmas v1', '2023-07-12 03:37:45', '2023-07-12 03:37:45'),
-	(9, 'SGH221VFC5', '103.178.83.250', 'Dell', 'null', 'Rak', '1000', '64 GB', '12 CORE ProLiant DL380P Gen8', 'Linux mint 18 GUI', '2016', 'Aplikasi Bakawan, Aset, Batarang PJU, Aksidisiring, esurat', '2023-07-12 03:43:05', '2023-07-12 03:43:05');
+	(7, 'SGH354VFC8', '103.178.83.87', 'Dell', 'foto/server/AvKDAbVsaWMuhb6aMLczf2x4N4gHboQIGDPci4Ah.png', 'Rak', '1000', '16 GB', '20 CORE ProLiant DL160 Gen10', 'Windows server 2008', '2017', 'proxmox, JDIH Pusat, Pentest Aplikasi', '2023-07-27 05:51:32', '2023-02-17 01:02:44'),
+	(8, 'SGH739T6MA', '103.178.83.249', 'HP', 'null', 'Rak', '320', '16 GB', '12 CORE ProLiant DL380P Gen8', 'Debian 6 non GUI', '2017', 'Naga Bungas, Epuskesmas v1', '2023-07-12 11:37:45', '2023-07-12 11:37:45'),
+	(9, 'SGH221VFC5', '103.178.83.250', 'Dell', 'null', 'Rak', '1000', '64 GB', '12 CORE ProLiant DL380P Gen8', 'Linux mint 18 GUI', '2016', 'Aplikasi Bakawan, Aset, Batarang PJU, Aksidisiring, esurat', '2023-07-12 11:43:05', '2023-07-12 11:43:05');
+/*!40000 ALTER TABLE `data_server` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.failed_jobs
-DROP TABLE IF EXISTS `failed_jobs`;
+-- membuang struktur untuk table data_perangkat.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table data_perangkat.failed_jobs: ~0 rows (approximately)
-DELETE FROM `failed_jobs`;
+-- Membuang data untuk tabel data_perangkat.failed_jobs: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.merk
-DROP TABLE IF EXISTS `merk`;
+-- membuang struktur untuk table data_perangkat.merk
 CREATE TABLE IF NOT EXISTS `merk` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(200) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT '-',
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -144,27 +140,27 @@ CREATE TABLE IF NOT EXISTS `merk` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table data_perangkat.merk: ~0 rows (approximately)
-DELETE FROM `merk`;
+-- Membuang data untuk tabel data_perangkat.merk: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `merk` DISABLE KEYS */;
+/*!40000 ALTER TABLE `merk` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.migrations
-DROP TABLE IF EXISTS `migrations`;
+-- membuang struktur untuk table data_perangkat.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table data_perangkat.migrations: ~0 rows (approximately)
-DELETE FROM `migrations`;
+-- Membuang data untuk tabel data_perangkat.migrations: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.nvr_cctv
-DROP TABLE IF EXISTS `nvr_cctv`;
+-- membuang struktur untuk table data_perangkat.nvr_cctv
 CREATE TABLE IF NOT EXISTS `nvr_cctv` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(50) NOT NULL,
-  `merk` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `merk` varchar(200) NOT NULL,
   `gambar` varchar(200) NOT NULL,
   `video_ch` varchar(50) NOT NULL DEFAULT '',
   `hardisk` varchar(50) NOT NULL,
@@ -174,29 +170,29 @@ CREATE TABLE IF NOT EXISTS `nvr_cctv` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.nvr_cctv: ~0 rows (approximately)
-DELETE FROM `nvr_cctv`;
+-- Membuang data untuk tabel data_perangkat.nvr_cctv: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `nvr_cctv` DISABLE KEYS */;
 INSERT INTO `nvr_cctv` (`id`, `sn`, `merk`, `gambar`, `video_ch`, `hardisk`, `penggunaan`, `tahun`, `updated_at`, `created_at`) VALUES
-	(2, '124124', 'Hikvision', 'foto/nvr/z9MWPWrDS5JZ9uvtmYH1s8Q8whHToxjaHBO1lCt7.png', '10', '10TB', 'Sistem Remote', '2022', '2023-07-20 04:25:02', '2023-02-06 17:42:50');
+	(2, '124124', 'Hikvision', 'foto/nvr/z9MWPWrDS5JZ9uvtmYH1s8Q8whHToxjaHBO1lCt7.png', '10', '10TB', 'Sistem Remote', '2022', '2023-07-20 12:25:02', '2023-02-07 01:42:50');
+/*!40000 ALTER TABLE `nvr_cctv` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.password_resets
-DROP TABLE IF EXISTS `password_resets`;
+-- membuang struktur untuk table data_perangkat.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table data_perangkat.password_resets: ~0 rows (approximately)
-DELETE FROM `password_resets`;
+-- Membuang data untuk tabel data_perangkat.password_resets: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.pemeliharaan
-DROP TABLE IF EXISTS `pemeliharaan`;
+-- membuang struktur untuk table data_perangkat.pemeliharaan
 CREATE TABLE IF NOT EXISTS `pemeliharaan` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `gambar` varchar(255) NOT NULL DEFAULT 'null',
   `nama_barang` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
@@ -209,16 +205,16 @@ CREATE TABLE IF NOT EXISTS `pemeliharaan` (
   `updated_at` timestamp NOT NULL,
   `created_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table data_perangkat.pemeliharaan: ~0 rows (approximately)
-DELETE FROM `pemeliharaan`;
+-- Membuang data untuk tabel data_perangkat.pemeliharaan: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `pemeliharaan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pemeliharaan` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.pengadaan
-DROP TABLE IF EXISTS `pengadaan`;
+-- membuang struktur untuk table data_perangkat.pengadaan
 CREATE TABLE IF NOT EXISTS `pengadaan` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `gambar` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'null',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gambar` varchar(255) NOT NULL DEFAULT 'null',
   `uraian` varchar(255) NOT NULL DEFAULT 'null',
   `volume` varchar(255) NOT NULL DEFAULT 'null',
   `unit` varchar(255) NOT NULL DEFAULT 'null',
@@ -227,37 +223,40 @@ CREATE TABLE IF NOT EXISTS `pengadaan` (
   `updated_at` timestamp NOT NULL,
   `created_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table data_perangkat.pengadaan: ~0 rows (approximately)
-DELETE FROM `pengadaan`;
+-- Membuang data untuk tabel data_perangkat.pengadaan: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `pengadaan` DISABLE KEYS */;
+INSERT INTO `pengadaan` (`id`, `gambar`, `uraian`, `volume`, `unit`, `harga`, `jumlah`, `updated_at`, `created_at`) VALUES
+	(1, 'foto/pengadaan/waeqDO6i1cUWJYuXZsF12SVYwP7nTPQf8iUhtNWO.jpg', 'asd', '10', 'asdasdwq', 10000, 100000, '2023-08-15 15:10:59', '2023-08-15 14:58:01'),
+	(2, 'foto/pengadaan/y3KShdWPgH7YOof8XamlGCRUKMfz8lOnwcJBGC8r.png', 'Laptop', '10', 'Satuan', 5000000, 50000000, '2023-10-17 12:07:14', '2023-10-17 12:07:14');
+/*!40000 ALTER TABLE `pengadaan` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.perangkat_jaringan
-DROP TABLE IF EXISTS `perangkat_jaringan`;
+-- membuang struktur untuk table data_perangkat.perangkat_jaringan
 CREATE TABLE IF NOT EXISTS `perangkat_jaringan` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `sn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `merk` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `cpu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `ram` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `lan_port` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `tahun` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'null',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sn` varchar(255) NOT NULL,
+  `merk` varchar(255) NOT NULL,
+  `cpu` varchar(255) NOT NULL,
+  `ram` varchar(255) NOT NULL,
+  `lan_port` varchar(255) NOT NULL,
+  `tahun` varchar(255) NOT NULL,
+  `gambar` varchar(255) NOT NULL DEFAULT 'null',
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.perangkat_jaringan: ~0 rows (approximately)
-DELETE FROM `perangkat_jaringan`;
+-- Membuang data untuk tabel data_perangkat.perangkat_jaringan: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `perangkat_jaringan` DISABLE KEYS */;
 INSERT INTO `perangkat_jaringan` (`id`, `sn`, `merk`, `cpu`, `ram`, `lan_port`, `tahun`, `gambar`, `updated_at`, `created_at`) VALUES
-	(3, '12312', '2131', '12321', '1212', '123', '123', '', '2023-07-12 21:52:04', '2023-07-12 21:52:04');
+	(3, '12312', '2131', '12321', '1212', '123', '123', '', '2023-07-13 05:52:04', '2023-07-13 05:52:04');
+/*!40000 ALTER TABLE `perangkat_jaringan` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.perangkat_rusak
-DROP TABLE IF EXISTS `perangkat_rusak`;
+-- membuang struktur untuk table data_perangkat.perangkat_rusak
 CREATE TABLE IF NOT EXISTS `perangkat_rusak` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kategori` varchar(255) NOT NULL,
   `sn` varchar(255) NOT NULL,
   `merk` varchar(255) NOT NULL,
@@ -270,18 +269,20 @@ CREATE TABLE IF NOT EXISTS `perangkat_rusak` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table data_perangkat.perangkat_rusak: ~0 rows (approximately)
-DELETE FROM `perangkat_rusak`;
+-- Membuang data untuk tabel data_perangkat.perangkat_rusak: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `perangkat_rusak` DISABLE KEYS */;
+INSERT INTO `perangkat_rusak` (`id`, `kategori`, `sn`, `merk`, `tahun`, `status`, `keterangan`, `gambar`, `updated_at`, `created_at`) VALUES
+	(1, 'Server', 'SGH354VFC8', 'Dell', '2017', 'Hidup', 'Tidak mau hidup a', 'foto/rusak/ABDnexKhkrShwfgLUg5YkIEhkby7t2fqiVdFWo0p.jpg', '2023-08-15 13:31:00', '2023-08-15 13:20:31');
+/*!40000 ALTER TABLE `perangkat_rusak` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.personal_access_tokens
-DROP TABLE IF EXISTS `personal_access_tokens`;
+-- membuang struktur untuk table data_perangkat.personal_access_tokens
 CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint unsigned NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -291,32 +292,33 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table data_perangkat.personal_access_tokens: ~0 rows (approximately)
-DELETE FROM `personal_access_tokens`;
+-- Membuang data untuk tabel data_perangkat.personal_access_tokens: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.user
-DROP TABLE IF EXISTS `user`;
+-- membuang struktur untuk table data_perangkat.user
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `password` varchar(200) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `telp` varchar(50) NOT NULL DEFAULT '',
   `level` enum('admin','user') NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table data_perangkat.user: ~0 rows (approximately)
-DELETE FROM `user`;
+-- Membuang data untuk tabel data_perangkat.user: ~0 rows (lebih kurang)
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `telp`, `level`) VALUES
-	(3, 'admin', '$2a$12$VROCmkwa2AJEPUNTwabPeOXtMkr3W8qIqqfVKslVSXIHus7QDkmqW', 'Admin', '088342', 'admin');
+	(3, 'admin', '$2a$12$VROCmkwa2AJEPUNTwabPeOXtMkr3W8qIqqfVKslVSXIHus7QDkmqW', 'Admin', '088342', 'admin'),
+	(4, 'user', '$2a$12$oOkKCHt.PuNwY4GXFszwl.OGD76aM1xKp9yujvVKFhfnAbdMEdc66', 'User', '088727', 'user');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
--- Dumping structure for table data_perangkat.wifi_publik
-DROP TABLE IF EXISTS `wifi_publik`;
+-- membuang struktur untuk table data_perangkat.wifi_publik
 CREATE TABLE IF NOT EXISTS `wifi_publik` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sn` varchar(255) DEFAULT NULL,
-  `merk` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `merk` varchar(255) DEFAULT NULL,
   `ssid` varchar(255) DEFAULT NULL,
   `letak` varchar(255) DEFAULT NULL,
   `tahun` varchar(255) DEFAULT NULL,
@@ -325,12 +327,15 @@ CREATE TABLE IF NOT EXISTS `wifi_publik` (
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sn` (`sn`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Data untuk Wifi Publik';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Data untuk Wifi Publik';
 
--- Dumping data for table data_perangkat.wifi_publik: ~0 rows (approximately)
-DELETE FROM `wifi_publik`;
+-- Membuang data untuk tabel data_perangkat.wifi_publik: ~1 rows (lebih kurang)
+/*!40000 ALTER TABLE `wifi_publik` DISABLE KEYS */;
+INSERT INTO `wifi_publik` (`id`, `sn`, `merk`, `ssid`, `letak`, `tahun`, `gambar`, `updated_at`, `created_at`) VALUES
+	(1, 'TR9827X', 'TP-Link', 'Pemko Banjarmasin', 'Gedung C', '2021', 'foto/wifi-publik/eG09MbE7qr2LofoyQ5ze3zadBR2itNMz5a7iLPP7.jpg', '2023-08-15 13:01:40', '2023-08-15 12:59:52'),
+	(3, 'RJ-0012', 'Ruijie-Reyee', 'Dinas Kesehatan', 'Jl. Pramuka', '2022', 'null', '2023-08-21 11:34:52', '2023-08-21 11:34:52');
+/*!40000 ALTER TABLE `wifi_publik` ENABLE KEYS */;
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
