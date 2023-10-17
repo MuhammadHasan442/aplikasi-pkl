@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                 <form action="{{ route('pdfDS') }}" method="POST" target="_blank">
+                 <form action="{{ route('prevServer') }}" method="POST" target="_blank">
                     @csrf
                     <!-- <input type="hidden" name="sn" id="sn"> -->
                     <div class="form-group">
