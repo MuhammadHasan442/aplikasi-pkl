@@ -5,7 +5,11 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <img src="{{ asset('img\logo-kominfo-transparent.png') }}" style="position:relative; left:17%; width: 40px; height: auto;" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">Administrator</div>
+        @if (Auth::user()->level == 'admin' )
+            <div class="sidebar-brand-text mx-3">Administrator</div>
+        @else
+            <div class="sidebar-brand-text mx-3">Pegawai</div>
+        @endif
     </a>
 
     <!-- Divider -->

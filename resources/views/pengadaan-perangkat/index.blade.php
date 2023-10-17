@@ -6,12 +6,14 @@
             <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Tambah Data</span>
-            </a>
+            @if (Auth::user()->level == 'admin')
+                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Tambah Data</span>
+                </a>
+            @endif
             <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#cetakModal">
                 <span class="icon text-white-50">
                     <i class="fa fa-eye"></i>
@@ -31,7 +33,9 @@
                         <th scope="col">Unit</th>
                         <th scope="col">Harga Satuan (Rp)</th>
                         <th scope="col">Jumlah (Rp)</th>
-                        <th scope="col">AKSI</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th scope="col">AKSI</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -42,19 +46,21 @@
                             <td>{{ $post->uraian }}</td>
                             <td>{{ $post->volume }}</td>
                             <td>{{ $post->unit }}</td>
-                            <td>{{ $post->harga }}</td>
-                            <td>{{ $post->jumlah }}</td>
-                            <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengadaan-perangkat.destroy', $post->id) }}" method="POST">
-                                    <input type="hidden" value="{{$post->id}}" name="id" id="id">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </div>
-                                </form>
-                            </td>
+                            <td>@duit($post->harga)</td>
+                            <td>@duit($post->jumlah)</td>
+                            @if (Auth::user()->level == 'admin')
+                                <td class="text-center">
+                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengadaan-perangkat.destroy', $post->id) }}" method="POST">
+                                        <input type="hidden" value="{{$post->id}}" name="id" id="id">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
+                            @endif
                         </tr>
                     @empty
                         <div class="alert alert-danger">
@@ -78,10 +84,10 @@
                     for (const iterator of res) {
                         $('#post_id').val(`${iterator.id}`)
                         $('#uraian').val(`${iterator.uraian}`)
-                        $('#volume').val(`${iterator.volume}`)
+                        $('#volume_e').val(`${iterator.volume}`)
                         $('#unit').val(`${iterator.unit}`)
-                        $('#harga').val(`${iterator.harga}`)
-                        $('#jumlah').val(`${iterator.jumlah}`)
+                        $('#harga_e').val(`${iterator.harga}`)
+                        $('#jumlah_e').val(`${iterator.jumlah}`)
                     }
                 },
                 onError: function (err) {
@@ -90,6 +96,35 @@
             });
 
         }
+
+        $(function() {
+
+            $("#harga").on("change", function() {
+
+                var harga = parseInt($("#harga").val());
+                var vol = parseInt($("#volume").val());
+                var total = harga * vol;
+
+                $("#jumlah").val(total)
+
+            });
+
+        });
+
+        $(function() {
+
+            $("#harga_e").on("change", function() {
+
+                var harga = parseInt($("#harga_e").val());
+                var vol = parseInt($("#volume_e").val());
+                var total = harga * vol;
+
+                $("#jumlah_e").val(total)
+
+            });
+
+        });
+
     </script>
     @endpush
     @include('pengadaan-perangkat.insert')

@@ -6,12 +6,14 @@
             <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Tambah Data</span>
-            </a>
+            @if (Auth::user()->level == 'admin')
+                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Tambah Data</span>
+                </a>
+            @endif
             <div class="table-responsive">
             <br>
             @include('partial.notif')

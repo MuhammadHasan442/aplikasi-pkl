@@ -6,12 +6,14 @@
             <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
         </div>
         <div class="card-body">
-            <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Tambah Data</span>
-            </a>
+            @if (Auth::user()->level == 'admin')
+                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#tambahModal">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Tambah Data</span>
+                </a>
+            @endif
             <a href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#cetakModal">
                 <span class="icon text-white-50">
                     <i class="fa fa-eye"></i>
@@ -30,11 +32,13 @@
                         <th scope="col">Unit</th>
                         <th scope="col">Satuan</th>
                         <th scope="col">Harga (Rp)</th>
-                        <th scope="col">Total Harga</th>
+                        <th scope="col">Total Harga (Rp)</th>
                         <th scope="col">Harga Ekatalog/item (Rp)</th>
                         <th scope="col">Harga Nego/item (Rp)</th>
                         <th scope="col">Link</th>
-                        <th scope="col">AKSI</th>
+                        @if (Auth::user()->level == 'admin')
+                            <th scope="col">AKSI</th>
+                        @endif
                       </tr>
                     </thead>
                     <tbody>
@@ -45,22 +49,24 @@
                             <td>{{ $post->nama_barang }}</td>
                             <td>{{ $post->unit }}</td>
                             <td>{{ $post->satuan }}</td>
-                            <td>{{ $post->harga }}</td>
-                            <td>{{ $post->total_harga }}</td>
-                            <td>{{ $post->ekatalog }}</td>
-                            <td>{{ $post->nego }}</td>
+                            <td>@duit($post->harga)</td>
+                            <td>@duit($post->total_harga)</td>
+                            <td>@duit($post->ekatalog)</td>
+                            <td>@duit($post->nego)</td>
                             <td>{{ $post->link }}</td>
-                            <td class="text-center">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pemeliharaan-perangkat.destroy', $post->id) }}" method="POST">
-                                    <input type="hidden" value="{{$post->id}}" name="id">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </div>
-                                </form>
-                            </td>
+                            @if (Auth::user()->level == 'admin')
+                                <td class="text-center">
+                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pemeliharaan-perangkat.destroy', $post->id) }}" method="POST">
+                                        <input type="hidden" value="{{$post->id}}" name="id">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" href="#" class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="get_data('{{$post->id}}')"><i class="fas fa-edit"></i></button>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </form>
+                                </td>
+                            @endif
                         </tr>
                       @empty
                           <div class="alert alert-danger">
@@ -98,14 +104,6 @@
         });
 
         }
-
-        // $(function () {
-        //     $(':checkbox').change(function(){
-        //         $('input:text').eq($(':checkbox').index(this)).prop("disabled", !$(this).is(':checked'));
-        //     });
-
-        //     $(':checkbox').change();
-        // });
 
     </script>
     @endpush
