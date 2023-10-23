@@ -16,4 +16,9 @@ class PerangkatJar_m extends Model
 
    // protected $fillable = ['sn, merk_perangkat, cpu, ram, lan_port, tahun'];
     protected $guarded = [];
+
+    public function perangkatjar_rusak()
+    {
+        return $this->hasOne(PerangkatRusak_m::class, 'sn');
+    }
 }
