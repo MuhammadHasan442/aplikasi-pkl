@@ -18,8 +18,8 @@
                             <input type="nama" class="form-control" name="nama" aria-describedby="nama" id="nama" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="unit">Unit</label>
-                            <input type="text" class="form-control" name="unit" aria-describedby="unit" id="unit" required>
+                            <label for="unit_e">Unit</label>
+                            <input type="text" class="form-control" name="unit_e" aria-describedby="unit_e" id="unit_e" required>
                         </div>
                         <div class="col-md-3">
                             <label for="satuan">Satuan</label>
@@ -29,11 +29,11 @@
                     <hr>
                     <div class="form-group form-row">
                         <div class="col-md-6">
-                            <label for="harga">Harga (Rp)</label>
-                            <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga" required></div>
+                            <label for="harga_e">Harga (Rp)</label>
+                            <input type="text" class="form-control" name="harga_e" aria-describedby="harga_e" id="harga_e" required></div>
                         <div class="col-md-6">
-                            <label for="total">Total Harga (Rp)</label>
-                            <input type="text" class="form-control" name="total" aria-describedby="total" id="total" required></div>
+                            <label for="total_e">Total Harga (Rp)</label>
+                            <input type="text" class="form-control" name="total_e" aria-describedby="total_e" id="total_e" required readonly></div>
                     </div>
                     <div class="form-group form-row">
                         <div class="col-md-6">

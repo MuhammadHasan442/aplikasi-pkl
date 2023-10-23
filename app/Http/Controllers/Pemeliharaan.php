@@ -113,36 +113,29 @@ class Pemeliharaan extends Controller
 
         $update = Pemeliharaan_m::where('id', $request->post_id)->firstOrfail();
 
-        try {
-
-            if ($request->gambar) {
-                if (file_exists(storage_path('app/public/'.$update->gambar))) {
-                    \Storage::delete('public/'.$update->gambar);
-                    $file = $request->file('gambar')->store('foto/pemeliharaan', 'public');
-                    $update->gambar = $file;
-                } else {
-                    $file = $request->file('gambar')->store('foto/pemeliharaan', 'public');
-                    $update->gambar = $file;
-                }
+        if ($request->gambar) {
+            if (file_exists(storage_path('app/public/'.$update->gambar))) {
+                \Storage::delete('public/'.$update->gambar);
+                $file = $request->file('gambar')->store('foto/pemeliharaan', 'public');
+                $update->gambar = $file;
+            } else {
+                $file = $request->file('gambar')->store('foto/pemeliharaan', 'public');
+                $update->gambar = $file;
             }
-
-            $update->nama_barang     = $request->nama;
-            $update->unit            = $request->unit;
-            $update->satuan          = $request->satuan;
-            $update->harga           = $request->harga;
-            $update->total_harga     = $request->total;
-            $update->ekatalog        = $request->ekatalog;
-            $update->nego            = $request->nego;
-            $update->link            = $request->link;
-            $update->save();
-
-            return redirect()->route('pemeliharaan-perangkat.index')->with(['success' => 'Data Berhasil Diupdate!']);
-
-        } catch (\Throwable $th) {
-
-            return redirect()->route('pemeliharaan-perangkat.index')->with(['warning' => 'IP Sudah Ada!']);
-
         }
+
+        $update->nama_barang     = $request->nama;
+        $update->unit            = $request->unit_e;
+        $update->satuan          = $request->satuan;
+        $update->harga           = $request->harga_e;
+        $update->total_harga     = $request->total_e;
+        $update->ekatalog        = $request->ekatalog;
+        $update->nego            = $request->nego;
+        $update->link            = $request->link;
+        $update->save();
+
+        return redirect()->route('pemeliharaan-perangkat.index')->with(['success' => 'Data Berhasil Diupdate!']);
+
     }
 
     /**

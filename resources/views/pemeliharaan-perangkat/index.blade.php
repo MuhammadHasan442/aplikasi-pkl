@@ -92,10 +92,10 @@
                 for (const iterator of res) {
                     $('#post_id').val(`${iterator.id}`)
                     $('#nama').val(`${iterator.nama_barang}`)
-                    $('#unit').val(`${iterator.unit}`)
+                    $('#unit_e').val(`${iterator.unit}`)
                     $('#satuan').val(`${iterator.satuan}`)
-                    $('#harga').val(`${iterator.harga}`)
-                    $('#total').val(`${iterator.total_harga}`)
+                    $('#harga_e').val(`${iterator.harga}`)
+                    $('#total_e').val(`${iterator.total_harga}`)
                     $('#ekatalog').val(`${iterator.ekatalog}`)
                     $('#nego').val(`${iterator.nego}`)
                     $('#link').val(`${iterator.link}`)
@@ -104,6 +104,36 @@
         });
 
         }
+
+        $(function() {
+            const $a = $("#harga, #unit")
+
+            $a.on("keyup", function() {
+
+                var harga = parseInt($("#harga").val());
+                var unit  = parseInt($("#unit").val());
+                var total = harga * unit;
+
+                $("#total").val(total)
+
+            });
+
+        });
+
+        $(function() {
+            const $b = $("#harga_e, #unit_e")
+
+            $b.on("keyup", function() {
+
+                var harga_e = parseInt($("#harga_e").val());
+                var unit_e  = parseInt($("#unit_e").val());
+                var total_e = harga_e * unit_e;
+
+                $("#total_e").val(total_e)
+
+            });
+
+        });
 
     </script>
     @endpush

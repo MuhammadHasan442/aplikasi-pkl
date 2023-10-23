@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="unit">Unit</label>
-                            <input type="text" class="form-control" name="unit" aria-describedby="unit" required>
+                            <input type="text" class="form-control" name="unit" aria-describedby="unit" id="unit" required value="0">
                         </div>
                         <div class="col-md-3">
                             <label for="satuan">Satuan</label>
@@ -30,19 +30,19 @@
                     <div class="form-group form-row">
                         <div class="col-md-6">
                             <label for="harga">Harga (Rp)</label>
-                            <input type="text" class="form-control" name="harga" aria-describedby="harga" required></div>
+                            <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga" required value="0"></div>
                         <div class="col-md-6">
                             <label for="total">Total Harga (Rp)</label>
-                            <input type="text" class="form-control" name="total" aria-describedby="total" required></div>
+                            <input type="text" class="form-control" name="total" aria-describedby="total" id="total" required readonly></div>
                     </div>
                     <div class="form-group form-row">
                         <div class="col-md-6">
                             <label for="ekatalog">Harga E-Katalog/item (Rp)</label>
-                            <input type="text" class="form-control" name="ekatalog" aria-describedby="ekatalog" required>
+                            <input type="text" class="form-control" name="ekatalog" aria-describedby="ekatalog" required value="0">
                         </div>
                         <div class="col-md-6">
                             <label for="nego">Harga Nego/item (Rp)</label>
-                            <input type="text" class="form-control" name="nego" aria-describedby="nego" required>
+                            <input type="text" class="form-control" name="nego" aria-describedby="nego" required value="0">
                         </div>
                     </div>
                     <hr>

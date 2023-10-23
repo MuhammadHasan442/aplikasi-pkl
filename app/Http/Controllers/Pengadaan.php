@@ -124,10 +124,10 @@ class Pengadaan extends Controller
         }
 
         $update->uraian     = $request->uraian;
-        $update->volume     = $request->volume;
+        $update->volume     = $request->volume_e;
         $update->unit       = $request->unit;
-        $update->harga      = $request->harga;
-        $update->jumlah     = $request->jumlah;
+        $update->harga      = $request->harga_e;
+        $update->jumlah     = $request->jumlah_e;
         $update->save();
 
         return redirect()->route('pengadaan-perangkat.index')->with(['success' => 'Data Berhasil Diupdate!']);

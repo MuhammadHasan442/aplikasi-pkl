@@ -98,8 +98,9 @@
         }
 
         $(function() {
+            const $a = $("#volume, #harga")
 
-            $("#harga").on("change", function() {
+            $a.on("keyup", function() {
 
                 var harga = parseInt($("#harga").val());
                 var vol = parseInt($("#volume").val());
@@ -112,8 +113,9 @@
         });
 
         $(function() {
+            const $b = $("#volume_e, #harga_e")
 
-            $("#harga_e").on("change", function() {
+            $b.on("keyup", function() {
 
                 var harga = parseInt($("#harga_e").val());
                 var vol = parseInt($("#volume_e").val());

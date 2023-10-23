@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="volume">Volume</label>
-                        <input type="text" class="form-control" name="volume" aria-describedby="volume" id="volume">
+                        <input type="text" class="form-control" name="volume" aria-describedby="volume" id="volume" value="0">
                     </div>
                     <div class="form-group">
                         <label for="unit">Unit</label>
@@ -26,11 +26,11 @@
                     </div>
                     <div class="form-group">
                         <label for="harga">Harga Satuan (Rp)</label>
-                        <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga">
+                        <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga" value="0">
                     </div>
                     <div class="form-group">
                         <label for="jumlah">Jumlah (Rp)</label>
-                        <input type="text" class="form-control" name="jumlah" aria-describedby="jumlah" id="jumlah">
+                        <input type="text" class="form-control" name="jumlah" aria-describedby="jumlah" id="jumlah" readonly>
                     </div>
                     <div class="form-group">
                         <label for="gambar">Foto</label>

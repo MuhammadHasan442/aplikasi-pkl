@@ -17,21 +17,21 @@
                         <input type="text" class="form-control" name="uraian" aria-describedby="uraian" id="uraian" required>
                     </div>
                     <div class="form-group">
-                        <label for="volume">Volume</label>
-                        <input type="text" class="form-control" name="volume" aria-describedby="volume" id="volume_e">
+                        <label for="volume_e">Volume</label>
+                        <input type="text" class="form-control" name="volume_e" aria-describedby="volume_e" id="volume_e">
                     </div>
                     <div class="form-group">
                         <label for="unit">Unit</label>
                         <input type="text" class="form-control" name="unit" aria-describedby="unit" id="unit">
                     </div>
                     <div class="form-group">
-                        <label for="harga">Harga Satuan (Rp)</label>
-                        <input type="text" class="form-control" name="harga" aria-describedby="harga" id="harga_e">
+                        <label for="harga_e">Harga Satuan (Rp)</label>
+                        <input type="text" class="form-control" name="harga_e" aria-describedby="harga_e" id="harga_e">
                     </div>
 
                     <div class="form-group">
-                        <label for="jumlah">Jumlah (Rp)</label>
-                        <input type="text" class="form-control" name="jumlah" aria-describedby="jumlah" id="jumlah_e">
+                        <label for="jumlah_e">Jumlah (Rp)</label>
+                        <input type="text" class="form-control" name="jumlah_e" aria-describedby="jumlah_e" id="jumlah_e" readonly>
                     </div>
                     <div class="form-group">
                         <label for="gambar">Foto</label>
