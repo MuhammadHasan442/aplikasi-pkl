@@ -16,4 +16,9 @@ class CctvPublik_m extends Model
 
     //protected $fillable = ['sn, merk_cctv, tipe, letak, tahun'];
     protected $guarded = [];
+
+    public function cctvpublik_rusak()
+    {
+        return $this->hasOne(PerangkatRusak_m::class, 'sn');
+    }
 }

@@ -240,4 +240,22 @@ class PerangkatRusak extends Controller
 
         return view('perangkat-rusak.pdf', compact('data'));
     }
+
+    public function rekapData()
+    {
+
+        $accesspoint  = AccessPoint_m::join('perangkat_rusak', 'access_point.sn', '=', 'perangkat_rusak.sn')->get();
+        $cctvpemko    = CctvPemko_m::join('perangkat_rusak', 'cctv_pemko.sn', '=', 'perangkat_rusak.sn')->get();
+        $cctvpublik   = CctvPublik_m::join('perangkat_rusak', 'cctv_publik.sn', '=', 'perangkat_rusak.sn')->get();
+        $nvr          = NvrCctv_m::join('perangkat_rusak', 'nvr_cctv.sn', '=', 'perangkat_rusak.sn')->get();
+        $perangkatjar = PerangkatJar_m::join('perangkat_rusak', 'perangkat_jaringan.sn', '=', 'perangkat_rusak.sn')->get();
+        $server       = Server_m::join('perangkat_rusak', 'data_server.sn', '=', 'perangkat_rusak.sn')->get();
+        $wifipublik   = WifiPublik_m::join('perangkat_rusak', 'wifi_publik.sn', '=', 'perangkat_rusak.sn')->get();
+
+        // dd($server);
+
+        return view('perangkat-rusak.rekap', compact('accesspoint','cctvpemko','cctvpublik','nvr','perangkatjar','server','wifipublik'));
+
+
+    }
 }

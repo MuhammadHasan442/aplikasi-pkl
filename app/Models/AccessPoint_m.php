@@ -16,4 +16,9 @@ class AccessPoint_m extends Model
 
     //protected $fillable = ['sn, merk_ap, tipe, nama_ap, letak, tahun'];
     protected $guarded = [];
+
+    public function ap_rusak()
+    {
+        return $this->hasOne(PerangkatRusak_m::class, 'sn');
+    }
 }

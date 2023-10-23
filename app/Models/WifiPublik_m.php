@@ -15,4 +15,9 @@ class WifiPublik_m extends Model
     protected $table = 'wifi_publik';
 
     protected $guarded = [];
+
+    public function wifipublik_rusak()
+    {
+        return $this->hasOne(PerangkatRusak_m::class, 'sn');
+    }
 }

@@ -78,8 +78,11 @@
                         <div class="modal-footer">
                             <button id="pdf-rusak" type="submit" class="btn btn-danger">Download PDF</button>
                             <button id="prev-rusak" type="submit" class="btn btn-primary">Preview Data</button>
-                        </div>
                     </form>
+                        <form action="rekapRusak" method="get" target="_blank">
+                            <button type="submit" class="btn btn-success">Rekap Data</button>
+                        </form>
+                        </div>
                 </div>
 
             </div>
@@ -219,8 +222,6 @@
                     $('#cetak-rusak').attr('action', "{{ route('prevRusak') }}");
 
                 });
-
-
             });
 
             $("#menu").on("change", function() {

@@ -96,6 +96,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('ubahRusak', [PerangkatRusak::class, 'update'])->name('rusak');
     Route::post('cetakRusak', [PerangkatRusak::class, 'getPDF'])->name('pdfRusak');
     Route::post('viewRusak', [PerangkatRusak::class, 'viewPrint'])->name('prevRusak');
+    Route::get('rekapRusak', [PerangkatRusak::class, 'rekapData']);
 
     Route::get('getPemeliharaan/{id}', [Pemeliharaan::class, 'getAPI']);
     Route::post('ubahPemeliharaan', [Pemeliharaan::class, 'update'])->name('pemeliharaan');

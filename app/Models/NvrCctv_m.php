@@ -16,4 +16,9 @@ class NvrCctv_m extends Model
 
     //protected $fillable = ['sn, merk_nvr, video_ch, hardisk, penggunaan, tahun'];
     protected $guarded = [];
+
+    public function nvr_rusak()
+    {
+        return $this->hasOne(PerangkatRusak_m::class, 'sn');
+    }
 }
